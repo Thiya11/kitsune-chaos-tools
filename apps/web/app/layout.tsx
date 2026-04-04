@@ -61,7 +61,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <Link href="/overview" className="nav-link">Tools</Link>
               <Link href="/blog"     className="nav-link">Blog</Link>
               <a
-                href="https://github.com/Thiya11/kitsune-labs"
+                href="https://github.com/Thiya11/kitsune-chaos-tools"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="nav-link"
