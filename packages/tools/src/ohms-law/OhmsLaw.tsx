@@ -12,14 +12,17 @@ const meta = {
   description: 'Solve for voltage, current, or resistance interactively',
 }
 
-// Palette matches kitsunechaos.com: near-black bg, accent yellow, neutral grays
-const C = {
-  wire:     '#444444',
-  battery:  '#e0e0e0',
-  resistor: '#888888',
-  current:  '#666666',
-  muted:    '#444444',
-  bg:       '#0f0f0f',
+/** Read canvas palette from live CSS variables so it respects the active theme. */
+function readThemeColors() {
+  const s = getComputedStyle(document.documentElement)
+  const v = (name: string, fallback: string) => s.getPropertyValue(name).trim() || fallback
+  return {
+    bg:       v('--bg-card',           '#0f0f0f'),
+    wire:     v('--border-color',      '#444444'),
+    battery:  v('--accent-primary',    '#e0e0e0'),
+    resistor: v('--accent-secondary',  '#888888'),
+    current:  v('--text-muted',        '#666666'),
+  }
 }
 
 const SOLVE_OPTIONS: { value: SolveFor; label: string }[] = [
@@ -53,6 +56,8 @@ export function OhmsLaw() {
       canvas.width = rect.width * dpr
       canvas.height = rect.height * dpr
       ctx.scale(dpr, dpr)
+
+      const C = readThemeColors()
 
       const W = rect.width
       const H = rect.height
@@ -162,7 +167,9 @@ export function OhmsLaw() {
     render()
     const ro = new ResizeObserver(render)
     ro.observe(canvas)
-    return () => ro.disconnect()
+    const mo = new MutationObserver(render)
+    mo.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] })
+    return () => { ro.disconnect(); mo.disconnect() }
   }, [state.formattedV, state.formattedI, state.formattedR, state.formattedP])
 
   const sidebar = (

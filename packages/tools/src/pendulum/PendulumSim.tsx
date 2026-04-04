@@ -1,8 +1,25 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Slider, Panel, ToolShell } from '@kitsune/ui'
 import { usePendulum } from './usePendulum'
+
+function useSvgColors() {
+  const [isDark, setIsDark] = useState(true)
+
+  useEffect(() => {
+    const check = () => setIsDark(document.documentElement.getAttribute('data-theme') !== 'light')
+    check()
+    const mo = new MutationObserver(check)
+    mo.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] })
+    return () => mo.disconnect()
+  }, [])
+
+  return isDark
+    ? { bg: '#0f0f0f', mount: '#1a1a1a', dash: '#2a2a2a', ref: '#1f1f1f', rod: '#333', pivotOuter: '#222', pivotInner: '#555', accent: '#e0e0e0', text: '#444444' }
+    : { bg: '#ffffff', mount: '#e0e0e0', dash: '#cccccc', ref: '#e5e5e5', rod: '#aaaaaa', pivotOuter: '#cccccc', pivotInner: '#888888', accent: '#000000', text: '#888888' }
+}
 
 const meta = {
   name: 'Pendulum Simulator',
@@ -16,6 +33,7 @@ const SVG_H = 550
 
 export function PendulumSim() {
   const sim = usePendulum()
+  const SC = useSvgColors()
 
   const rodLen = sim.length * 160
   const angleDeg = (sim.theta * 180) / Math.PI
@@ -167,7 +185,7 @@ export function PendulumSim() {
 
   return (
     <ToolShell meta={meta} sidebar={sidebar}>
-      <div style={{ display: 'flex', flex: 1, padding: '1.25rem' }}>
+      <div style={{ display: 'flex', flex: 1, padding: '1.25rem', minHeight: 0 }}>
         <div
           style={{
             flex: 1,
@@ -175,26 +193,27 @@ export function PendulumSim() {
             border: '1px solid var(--border-color)',
             overflow: 'hidden',
             background: 'var(--bg-card)',
-            minHeight: '320px',
+            display: 'flex',
+            flexDirection: 'column',
           }}
         >
-          <svg width="100%" height="100%" viewBox={`0 0 ${SVG_W} ${SVG_H}`} preserveAspectRatio="xMidYMid meet" style={{ userSelect: 'none', display: 'block', minHeight: '320px' }}>
+          <svg width="100%" height="100%" viewBox={`0 0 ${SVG_W} ${SVG_H}`} preserveAspectRatio="xMidYMid meet" style={{ userSelect: 'none', display: 'block', flex: 1, minHeight: '320px' }}>
             {/* Background */}
-            <rect width={SVG_W} height={SVG_H} fill="#111111" />
+            <rect width={SVG_W} height={SVG_H} fill={SC.bg} />
 
             {/* Ceiling mount */}
-            <rect x={sim.pivotX - 22} y={0} width={44} height={10} rx={2} fill="#1a1a1a" />
+            <rect x={sim.pivotX - 22} y={0} width={44} height={10} rx={2} fill={SC.mount} />
             <line
               x1={sim.pivotX} y1={0}
               x2={sim.pivotX} y2={sim.pivotY}
-              stroke="#2a2a2a" strokeWidth={1.5} strokeDasharray="4 3"
+              stroke={SC.dash} strokeWidth={1.5} strokeDasharray="4 3"
             />
 
             {/* Vertical reference */}
             <line
               x1={sim.pivotX} y1={sim.pivotY}
               x2={sim.pivotX} y2={sim.pivotY + rodLen + 20}
-              stroke="#1f1f1f" strokeWidth={1} strokeDasharray="6 4"
+              stroke={SC.ref} strokeWidth={1} strokeDasharray="6 4"
             />
 
             {/* Trail */}
@@ -202,7 +221,7 @@ export function PendulumSim() {
               <path
                 d={trailPath}
                 fill="none"
-                stroke="#e0e0e0"
+                stroke={SC.accent}
                 strokeWidth={1.5}
                 strokeOpacity={0.15}
                 strokeLinecap="round"
@@ -213,32 +232,32 @@ export function PendulumSim() {
             <line
               x1={sim.pivotX} y1={sim.pivotY}
               x2={sim.bobX}   y2={sim.bobY}
-              stroke="#333" strokeWidth={2} strokeLinecap="round"
+              stroke={SC.rod} strokeWidth={2} strokeLinecap="round"
             />
 
             {/* Pivot */}
-            <circle cx={sim.pivotX} cy={sim.pivotY} r={5}  fill="#222" />
-            <circle cx={sim.pivotX} cy={sim.pivotY} r={2.5} fill="#555" />
+            <circle cx={sim.pivotX} cy={sim.pivotY} r={5}  fill={SC.pivotOuter} />
+            <circle cx={sim.pivotX} cy={sim.pivotY} r={2.5} fill={SC.pivotInner} />
 
             {/* Bob glow */}
-            <circle cx={sim.bobX} cy={sim.bobY} r={20} fill="rgba(255,255,255,0.03)" />
+            <circle cx={sim.bobX} cy={sim.bobY} r={20} fill={SC.accent} fillOpacity={0.05} />
             {/* Bob */}
-            <circle cx={sim.bobX} cy={sim.bobY} r={13} fill="var(--bg-card, #0f0f0f)" stroke="var(--accent-primary, #e0e0e0)" strokeWidth={1.5} />
-            <circle cx={sim.bobX - 4} cy={sim.bobY - 4} r={3} fill="rgba(255,255,255,0.15)" />
+            <circle cx={sim.bobX} cy={sim.bobY} r={13} fill={SC.bg} stroke={SC.accent} strokeWidth={1.5} />
+            <circle cx={sim.bobX - 4} cy={sim.bobY - 4} r={3} fill={SC.accent} fillOpacity={0.2} />
 
             {/* Angle arc */}
             {Math.abs(sim.theta) > 0.02 && (
               <path
                 d={describeArc(sim.pivotX, sim.pivotY, 34, 0, sim.theta)}
                 fill="none"
-                stroke="#e0e0e0"
+                stroke={SC.accent}
                 strokeWidth={1}
                 opacity={0.25}
               />
             )}
 
             {/* Period readout */}
-            <text x={10} y={SVG_H - 10} fontSize={10} fill="#444444" fontFamily="JetBrains Mono, monospace">
+            <text x={10} y={SVG_H - 10} fontSize={10} fill={SC.text} fontFamily="JetBrains Mono, monospace">
               T = {sim.periodSeconds.toFixed(3)} s
             </text>
           </svg>
