@@ -14,17 +14,11 @@ export default function HomePage() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       {/* Hero */}
-      <section
-        style={{
-          position: 'relative',
-          overflow: 'hidden',
-          padding: 'var(--space-4xl) var(--space-xl)',
-          textAlign: 'center',
-        }}
-      >
-        {/* Animated orbs */}
+      <section className="hero-section">
+        {/* Animated orbs — hidden on mobile via .hero-orb */}
         <div
           aria-hidden
+          className="hero-orb"
           style={{
             position: 'absolute',
             top: '20%',
@@ -39,6 +33,7 @@ export default function HomePage() {
         />
         <div
           aria-hidden
+          className="hero-orb"
           style={{
             position: 'absolute',
             bottom: '10%',
@@ -116,7 +111,7 @@ export default function HomePage() {
           </p>
 
           <div
-            className="animate-fade-in-up"
+            className="animate-fade-in-up hero-cta"
             style={{
               display: 'flex',
               flexWrap: 'wrap',

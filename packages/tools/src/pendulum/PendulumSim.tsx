@@ -12,7 +12,7 @@ const meta = {
 }
 
 const SVG_W = 400
-const SVG_H = 440
+const SVG_H = 550
 
 export function PendulumSim() {
   const sim = usePendulum()
@@ -73,9 +73,9 @@ export function PendulumSim() {
       <Panel title="Measurements">
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
           {[
-            { label: 'Period',    value: `${sim.periodSeconds.toFixed(3)} s`,                color: 'var(--accent-primary)' },
-            { label: 'Frequency', value: `${(1 / sim.periodSeconds).toFixed(3)} Hz`,         color: 'var(--text-secondary)' },
-            { label: 'Angle',     value: `${angleDeg.toFixed(1)}°`,                          color: 'var(--accent-primary)' },
+            { label: 'Period',    value: `${sim.periodSeconds.toFixed(3)} s`,        color: 'var(--text-primary)', animate: true  },
+            { label: 'Frequency', value: `${(1 / sim.periodSeconds).toFixed(3)} Hz`, color: 'var(--text-primary)', animate: true  },
+            { label: 'Angle',     value: `${angleDeg.toFixed(1)}°`,                  color: 'var(--text-primary)', animate: false },
           ].map((row) => (
             <div
               key={row.label}
@@ -89,17 +89,23 @@ export function PendulumSim() {
                 border: '1px solid var(--border-subtle)',
               }}
             >
-              <span style={{ fontFamily: 'var(--font-mono)', fontSize: 'var(--fs-xs)', color: 'var(--accent-primary)' }}>{row.label}</span>
-              <AnimatePresence mode="wait">
-                <motion.span
-                  key={row.value}
-                  initial={{ opacity: 0, y: 2 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  style={{ fontFamily: 'monospace', fontSize: '0.825rem', fontWeight: 600, color: row.color }}
-                >
+              <span style={{ fontFamily: 'var(--font-mono)', fontSize: 'var(--fs-xs)', color: 'var(--text-muted)' }}>{row.label}</span>
+              {row.animate ? (
+                <AnimatePresence mode="wait">
+                  <motion.span
+                    key={row.value}
+                    initial={{ opacity: 0, y: 2 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    style={{ fontFamily: 'monospace', fontSize: '0.825rem', fontWeight: 600, color: row.color }}
+                  >
+                    {row.value}
+                  </motion.span>
+                </AnimatePresence>
+              ) : (
+                <span style={{ fontFamily: 'monospace', fontSize: '0.825rem', fontWeight: 600, color: row.color }}>
                   {row.value}
-                </motion.span>
-              </AnimatePresence>
+                </span>
+              )}
             </div>
           ))}
         </div>
@@ -161,16 +167,18 @@ export function PendulumSim() {
 
   return (
     <ToolShell meta={meta} sidebar={sidebar}>
-      <div style={{ display: 'flex', flex: 1, alignItems: 'center', justifyContent: 'center', padding: '2rem' }}>
+      <div style={{ display: 'flex', flex: 1, padding: '1.25rem' }}>
         <div
           style={{
+            flex: 1,
             borderRadius: 'var(--radius-lg)',
             border: '1px solid var(--border-color)',
             overflow: 'hidden',
             background: 'var(--bg-card)',
+            minHeight: '320px',
           }}
         >
-          <svg width={SVG_W} height={SVG_H} viewBox={`0 0 ${SVG_W} ${SVG_H}`} style={{ userSelect: 'none', display: 'block' }}>
+          <svg width="100%" height="100%" viewBox={`0 0 ${SVG_W} ${SVG_H}`} preserveAspectRatio="xMidYMid meet" style={{ userSelect: 'none', display: 'block', minHeight: '320px' }}>
             {/* Background */}
             <rect width={SVG_W} height={SVG_H} fill="#111111" />
 

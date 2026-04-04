@@ -38,26 +38,28 @@ export default async function BlogPostPage({ params }: Props) {
       {/* Back link */}
       <Link
         href="/blog"
-        className="mb-8 inline-flex items-center gap-1.5 text-sm text-zinc-500 transition-colors hover:text-zinc-300"
+        className="mb-8 inline-flex items-center gap-1.5 text-sm transition-colors"
+        style={{ color: 'var(--text-muted)' }}
       >
         ← All posts
       </Link>
 
       {/* Post header */}
       <header className="mb-10">
-        <div className="mb-3 flex items-center gap-3 text-sm text-zinc-500">
+        <div className="mb-3 flex items-center gap-3 text-sm" style={{ color: 'var(--text-muted)' }}>
           <time dateTime={post.date}>{formatDate(post.date)}</time>
           <span>·</span>
           <span>{post.readingTime}</span>
         </div>
-        <h1 className="text-3xl font-bold text-zinc-100 sm:text-4xl">{post.title}</h1>
-        <p className="mt-3 text-lg text-zinc-400">{post.description}</p>
+        <h1 className="text-3xl font-bold sm:text-4xl" style={{ color: 'var(--text-primary)' }}>{post.title}</h1>
+        <p className="mt-3 text-lg" style={{ color: 'var(--text-secondary)' }}>{post.description}</p>
         {post.tags.length > 0 && (
           <div className="mt-4 flex flex-wrap gap-2">
             {post.tags.map((tag) => (
               <span
                 key={tag}
-                className="rounded-md bg-zinc-800 px-2.5 py-1 text-xs font-medium text-zinc-400"
+                className="rounded-md px-2.5 py-1 text-xs font-medium"
+                style={{ background: 'var(--bg-tertiary)', color: 'var(--text-muted)', border: '1px solid var(--border-color)' }}
               >
                 {tag}
               </span>
@@ -72,10 +74,11 @@ export default async function BlogPostPage({ params }: Props) {
       </article>
 
       {/* Footer nav */}
-      <div className="mt-12 border-t border-zinc-800 pt-8">
+      <div className="mt-12 pt-8" style={{ borderTop: '1px solid var(--border-color)' }}>
         <Link
           href="/blog"
-          className="inline-flex items-center gap-1.5 text-sm text-zinc-500 transition-colors hover:text-zinc-300"
+          className="inline-flex items-center gap-1.5 text-sm transition-colors"
+          style={{ color: 'var(--text-muted)' }}
         >
           ← Back to all posts
         </Link>

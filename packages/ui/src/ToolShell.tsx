@@ -22,10 +22,10 @@ export function ToolShell({ meta, children, sidebar }: ToolShellProps) {
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+      className="tool-shell-root"
       style={{
         display: 'flex',
         flexDirection: 'column',
-        minHeight: '100vh',
         background: 'var(--bg-primary)',
         color: 'var(--text-primary)',
       }}
@@ -34,87 +34,63 @@ export function ToolShell({ meta, children, sidebar }: ToolShellProps) {
       <div
         style={{
           borderBottom: '1px solid var(--border-subtle)',
-          padding: '1rem 1.5rem',
+          padding: '0.75rem 1.25rem',
           background: 'var(--bg-glass)',
           backdropFilter: 'blur(16px)',
           WebkitBackdropFilter: 'blur(16px)',
         }}
       >
-        <div
-          style={{
-            maxWidth: '80rem',
-            margin: '0 auto',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.75rem',
-          }}
-        >
-          <span
+        <div className="tool-shell-header" style={{ maxWidth: '90rem', margin: '0 auto' }}>
+          {/* Breadcrumb row */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <span
+              style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: 'var(--fs-xs)',
+                fontWeight: 'var(--fw-semibold)',
+                textTransform: 'uppercase',
+                letterSpacing: '0.08em',
+                color: 'var(--text-muted)',
+              }}
+            >
+              {meta.category}
+            </span>
+            <span style={{ color: 'var(--border-color)', fontSize: 'var(--fs-xs)' }}>/</span>
+            <h1
+              style={{
+                fontSize: 'var(--fs-sm)',
+                fontWeight: 'var(--fw-semibold)',
+                color: 'var(--text-primary)',
+              }}
+            >
+              {meta.name}
+            </h1>
+          </div>
+          {/* Description */}
+          <p
+            className="tool-shell-desc"
             style={{
-              fontFamily: 'var(--font-mono)',
-              fontSize: 'var(--fs-xs)',
-              fontWeight: 'var(--fw-semibold)',
-              textTransform: 'uppercase',
-              letterSpacing: '0.08em',
-              color: 'var(--text-muted)',
-            }}
-          >
-            {meta.category}
-          </span>
-          <span style={{ color: 'var(--border-color)' }}>/</span>
-          <h1
-            style={{
-              fontSize: 'var(--fs-sm)',
-              fontWeight: 'var(--fw-semibold)',
-              color: 'var(--text-primary)',
-            }}
-          >
-            {meta.name}
-          </h1>
-          <span
-            style={{
-              marginLeft: 'auto',
               fontSize: 'var(--fs-xs)',
               color: 'var(--text-muted)',
               fontFamily: 'var(--font-mono)',
             }}
           >
             {meta.description}
-          </span>
+          </p>
         </div>
       </div>
 
       {/* Tool body */}
-      <div
-        style={{
-          display: 'flex',
-          flex: 1,
-          maxWidth: '80rem',
-          margin: '0 auto',
-          width: '100%',
-          overflow: 'hidden',
-        }}
-      >
+      <div className="tool-shell-body">
         {/* Sidebar */}
         {sidebar && (
-          <aside
-            style={{
-              width: '17rem',
-              flexShrink: 0,
-              borderRight: '1px solid var(--border-subtle)',
-              padding: '1.25rem',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '1rem',
-              overflowY: 'auto',
-            }}
-          >
+          <aside className="tool-shell-sidebar">
             {sidebar}
           </aside>
         )}
 
         {/* Canvas / main area */}
-        <main style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+        <main style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden', minWidth: 0 }}>
           {children}
         </main>
       </div>

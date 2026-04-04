@@ -15,7 +15,7 @@ const meta = {
 // Palette matches kitsunechaos.com: near-black bg, accent yellow, neutral grays
 const C = {
   wire:     '#444444',
-  battery:  '#e0e0e0',  // accent white (noir)
+  battery:  '#e0e0e0',
   resistor: '#888888',
   current:  '#666666',
   muted:    '#444444',
@@ -42,128 +42,127 @@ export function OhmsLaw() {
   useEffect(() => {
     const canvas = canvasRef.current
     if (!canvas) return
-    const ctx = canvas.getContext('2d')
-    if (!ctx) return
 
-    const dpr = window.devicePixelRatio ?? 1
-    const rect = canvas.getBoundingClientRect()
-    canvas.width = rect.width * dpr
-    canvas.height = rect.height * dpr
-    ctx.scale(dpr, dpr)
+    const render = () => {
+      const ctx = canvas.getContext('2d')
+      if (!ctx) return
 
-    const W = rect.width
-    const H = rect.height
-    const cx = W / 2
-    const cy = H / 2
+      const dpr = window.devicePixelRatio ?? 1
+      const rect = canvas.getBoundingClientRect()
+      if (rect.width === 0 || rect.height === 0) return
+      canvas.width = rect.width * dpr
+      canvas.height = rect.height * dpr
+      ctx.scale(dpr, dpr)
 
-    // Background
-    ctx.fillStyle = C.bg
-    ctx.fillRect(0, 0, W, H)
+      const W = rect.width
+      const H = rect.height
+      const cx = W / 2
+      const cy = H / 2
 
-    const pad = 70
-    const top = cy - 90
-    const bot = cy + 90
-    const left = pad
-    const right = W - pad
+      ctx.fillStyle = C.bg
+      ctx.fillRect(0, 0, W, H)
 
-    // Wires
-    ctx.strokeStyle = C.wire
-    ctx.lineWidth = 2
-    ctx.lineJoin = 'round'
-    ctx.lineCap = 'round'
-    ctx.beginPath()
-    ctx.moveTo(left, top)
-    ctx.lineTo(right, top)
-    ctx.lineTo(right, bot)
-    ctx.lineTo(left, bot)
-    ctx.lineTo(left, top)
-    ctx.stroke()
+      const pad = 70
+      const top = cy - 90
+      const bot = cy + 90
+      const left = pad
+      const right = W - pad
 
-    // Battery (left side)
-    const bH = 44
-    const bX = left
-    const bY1 = cy - bH / 2
-    const bY2 = cy + bH / 2
-    ctx.strokeStyle = C.battery
-    ctx.lineWidth = 2.5
-    ctx.beginPath()
-    ctx.moveTo(bX - 14, bY1)
-    ctx.lineTo(bX + 14, bY1)
-    ctx.stroke()
-    ctx.lineWidth = 1.5
-    ctx.beginPath()
-    ctx.moveTo(bX - 9, bY2)
-    ctx.lineTo(bX + 9, bY2)
-    ctx.stroke()
+      ctx.strokeStyle = C.wire
+      ctx.lineWidth = 2
+      ctx.lineJoin = 'round'
+      ctx.lineCap = 'round'
+      ctx.beginPath()
+      ctx.moveTo(left, top)
+      ctx.lineTo(right, top)
+      ctx.lineTo(right, bot)
+      ctx.lineTo(left, bot)
+      ctx.lineTo(left, top)
+      ctx.stroke()
 
-    // +/- labels
-    ctx.fillStyle = C.battery
-    ctx.font = 'bold 13px monospace'
-    ctx.textAlign = 'right'
-    ctx.fillText('+', bX - 17, bY1 + 5)
-    ctx.fillText('−', bX - 17, bY2 + 5)
+      const bH = 44
+      const bX = left
+      const bY1 = cy - bH / 2
+      const bY2 = cy + bH / 2
+      ctx.strokeStyle = C.battery
+      ctx.lineWidth = 2.5
+      ctx.beginPath()
+      ctx.moveTo(bX - 14, bY1)
+      ctx.lineTo(bX + 14, bY1)
+      ctx.stroke()
+      ctx.lineWidth = 1.5
+      ctx.beginPath()
+      ctx.moveTo(bX - 9, bY2)
+      ctx.lineTo(bX + 9, bY2)
+      ctx.stroke()
 
-    // Voltage label (below battery)
-    ctx.font = '11px monospace'
-    ctx.textAlign = 'center'
-    ctx.fillText(state.formattedV, bX - 17, cy + 6)
+      ctx.fillStyle = C.battery
+      ctx.font = 'bold 13px monospace'
+      ctx.textAlign = 'right'
+      ctx.fillText('+', bX - 17, bY1 + 5)
+      ctx.fillText('−', bX - 17, bY2 + 5)
 
-    // Resistor (top wire, center)
-    const rW = 64
-    const rH = 14
-    const rX = cx - rW / 2
-    const rY = top - rH / 2
-    ctx.strokeStyle = C.resistor
-    ctx.lineWidth = 1.5
-    ctx.strokeRect(rX, rY, rW, rH)
-    ctx.fillStyle = C.bg
-    ctx.fillRect(rX + 1, rY + 1, rW - 2, rH - 2)
+      ctx.font = '11px monospace'
+      ctx.textAlign = 'center'
+      ctx.fillText(state.formattedV, bX - 17, cy + 6)
 
-    // Zigzag
-    ctx.strokeStyle = C.resistor
-    ctx.lineWidth = 1.5
-    ctx.beginPath()
-    const zigCount = 6
-    const zigW = rW / zigCount
-    for (let i = 0; i <= zigCount; i++) {
-      const x = rX + i * zigW
-      const y = i % 2 === 0 ? rY + 2 : rY + rH - 2
-      i === 0 ? ctx.moveTo(x, rY + rH / 2) : ctx.lineTo(x, y)
+      const rW = 64
+      const rH = 14
+      const rX = cx - rW / 2
+      const rY = top - rH / 2
+      ctx.strokeStyle = C.resistor
+      ctx.lineWidth = 1.5
+      ctx.strokeRect(rX, rY, rW, rH)
+      ctx.fillStyle = C.bg
+      ctx.fillRect(rX + 1, rY + 1, rW - 2, rH - 2)
+
+      ctx.strokeStyle = C.resistor
+      ctx.lineWidth = 1.5
+      ctx.beginPath()
+      const zigCount = 6
+      const zigW = rW / zigCount
+      for (let i = 0; i <= zigCount; i++) {
+        const x = rX + i * zigW
+        const y = i % 2 === 0 ? rY + 2 : rY + rH - 2
+        i === 0 ? ctx.moveTo(x, rY + rH / 2) : ctx.lineTo(x, y)
+      }
+      ctx.lineTo(rX + rW, rY + rH / 2)
+      ctx.stroke()
+
+      ctx.fillStyle = C.battery
+      ctx.font = '11px monospace'
+      ctx.textAlign = 'center'
+      ctx.fillText(state.formattedR, cx, top - rH / 2 - 9)
+
+      const aX = right + 22
+      const aY1 = cy - 18
+      const aY2 = cy + 18
+      ctx.strokeStyle = C.current
+      ctx.lineWidth = 1.5
+      ctx.beginPath()
+      ctx.moveTo(aX, aY1)
+      ctx.lineTo(aX, aY2)
+      ctx.stroke()
+      ctx.beginPath()
+      ctx.moveTo(aX - 5, aY2 - 7)
+      ctx.lineTo(aX, aY2)
+      ctx.lineTo(aX + 5, aY2 - 7)
+      ctx.stroke()
+      ctx.fillStyle = C.battery
+      ctx.font = '11px monospace'
+      ctx.textAlign = 'left'
+      ctx.fillText(state.formattedI, aX + 9, cy + 4)
+
+      ctx.fillStyle = C.battery
+      ctx.font = '10px monospace'
+      ctx.textAlign = 'center'
+      ctx.fillText(`P = ${state.formattedP}`, cx, bot + 22)
     }
-    ctx.lineTo(rX + rW, rY + rH / 2)
-    ctx.stroke()
 
-    // Resistance label
-    ctx.fillStyle = C.resistor
-    ctx.font = '11px monospace'
-    ctx.textAlign = 'center'
-    ctx.fillText(state.formattedR, cx, top - rH / 2 - 9)
-
-    // Current arrow (right side)
-    const aX = right + 22
-    const aY1 = cy - 18
-    const aY2 = cy + 18
-    ctx.strokeStyle = C.current
-    ctx.lineWidth = 1.5
-    ctx.beginPath()
-    ctx.moveTo(aX, aY1)
-    ctx.lineTo(aX, aY2)
-    ctx.stroke()
-    ctx.beginPath()
-    ctx.moveTo(aX - 5, aY2 - 7)
-    ctx.lineTo(aX, aY2)
-    ctx.lineTo(aX + 5, aY2 - 7)
-    ctx.stroke()
-    ctx.fillStyle = C.current
-    ctx.font = '11px monospace'
-    ctx.textAlign = 'left'
-    ctx.fillText(state.formattedI, aX + 9, cy + 4)
-
-    // Power
-    ctx.fillStyle = C.muted
-    ctx.font = '10px monospace'
-    ctx.textAlign = 'center'
-    ctx.fillText(`P = ${state.formattedP}`, cx, bot + 22)
+    render()
+    const ro = new ResizeObserver(render)
+    ro.observe(canvas)
+    return () => ro.disconnect()
   }, [state.formattedV, state.formattedI, state.formattedR, state.formattedP])
 
   const sidebar = (
@@ -287,13 +286,14 @@ export function OhmsLaw() {
 
   return (
     <ToolShell meta={meta} sidebar={sidebar}>
-      <div style={{ display: 'flex', flex: 1, alignItems: 'center', justifyContent: 'center', padding: '2rem' }}>
+      <div style={{ display: 'flex', flex: 1, padding: '1.25rem' }}>
         <canvas
           ref={canvasRef}
           style={{
+            flex: 1,
             width: '100%',
-            maxWidth: '480px',
-            height: '340px',
+            height: '85%',
+            minHeight: '320px',
             borderRadius: 'var(--radius-lg)',
             border: '1px solid var(--border-color)',
             display: 'block',

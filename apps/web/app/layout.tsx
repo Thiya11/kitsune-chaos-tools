@@ -1,5 +1,8 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { ThemeProvider } from '@/components/ThemeProvider'
+import { ThemeToggle } from '@/components/ThemeToggle'
+import { MobileNav } from '@/components/MobileNav'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -19,6 +22,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body style={{ fontFamily: 'var(--font-primary)', background: 'var(--bg-primary)', color: 'var(--text-primary)' }}>
+      <ThemeProvider>
         {/* Background layers */}
         <div className="layout__bg-gradient" aria-hidden />
         <div className="layout__bg-noise" aria-hidden />
@@ -34,6 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             height: 'var(--nav-height)',
             display: 'flex',
             alignItems: 'center',
+            overflow: 'visible',
           }}
         >
           <div
@@ -53,11 +58,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 color: 'inherit',
               }}
             >
-              <img alt="Kitsune Chaos" className="h-[32px] w-auto" src="/brand/favicon.ico" />
-              <span className="tracking-widest">KITSUNE<span className="gradient-text">CHAOS</span></span>
+              <img alt="Kitsune Chaos" className="h-[28px] w-auto" src="/brand/favicon.ico" />
+              <span className="tracking-widest nav-logo-text">KITSUNE<span className="gradient-text">CHAOS</span></span>
             </Link>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-xs)' }}>
+            {/* Desktop nav */}
+            <div className="hidden md:flex" style={{ alignItems: 'center', gap: 'var(--space-xs)' }}>
               <Link href="/overview" className="nav-link">Tools</Link>
               <Link href="/blog"     className="nav-link">Blog</Link>
               <a
@@ -68,6 +74,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               >
                 GitHub
               </a>
+              <ThemeToggle />
+            </div>
+
+            {/* Mobile nav */}
+            <div className="flex md:hidden" style={{ alignItems: 'center', gap: 'var(--space-sm)' }}>
+              <MobileNav />
             </div>
           </div>
         </nav>
@@ -78,43 +90,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </div>
 
         {/* Footer */}
-        <footer
-          style={{
-            position: 'relative',
-            padding: 'var(--space-3xl) 0 var(--space-xl)',
-            borderTop: '1px solid var(--border-color)',
-            overflow: 'hidden',
-            zIndex: 1,
-          }}
-        >
+        <footer className="site-footer">
           <div className="footer__glow" aria-hidden />
-
           <div className="container">
-            {/* Footer top */}
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'flex-start',
-                gap: 'var(--space-2xl)',
-                marginBottom: 'var(--space-2xl)',
-                flexWrap: 'wrap',
-              }}
-            >
+            <div className="footer-top">
               {/* Brand */}
-              <div style={{ maxWidth: '300px' }}>
-                <div
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 'var(--space-sm)',
-                    fontSize: 'var(--fs-xl)',
-                    fontWeight: 'var(--fw-bold)',
-                    letterSpacing: '-0.02em',
-                    marginBottom: 'var(--space-sm)',
-                  }}
-                >
-                  <img alt="Kitsune Chaos" className="h-[32px] w-auto" src="/brand/favicon.ico" />
+              <div style={{ maxWidth: '280px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-sm)', fontSize: 'var(--fs-lg)', fontWeight: 'var(--fw-bold)', letterSpacing: '-0.02em', marginBottom: 'var(--space-sm)' }}>
+                  <img alt="Kitsune Chaos" className="h-[28px] w-auto" src="/brand/favicon.ico" />
                   <span>Kitsune Chaos</span>
                 </div>
                 <p style={{ color: 'var(--text-secondary)', fontSize: 'var(--fs-sm)', lineHeight: 1.6 }}>
@@ -123,93 +106,37 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               </div>
 
               {/* Nav groups */}
-              <div style={{ display: 'flex', gap: 'var(--space-3xl)', flexWrap: 'wrap' }}>
+              <div className="footer-nav-groups">
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-sm)' }}>
-                  <span
-                    style={{
-                      fontSize: 'var(--fs-xs)',
-                      fontWeight: 'var(--fw-semibold)',
-                      color: 'var(--text-muted)',
-                      textTransform: 'uppercase',
-                      letterSpacing: '0.1em',
-                      marginBottom: 'var(--space-xs)',
-                    }}
-                  >
+                  <span style={{ fontSize: 'var(--fs-xs)', fontWeight: 'var(--fw-semibold)', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 'var(--space-xs)' }}>
                     Navigate
                   </span>
-                  {[
-                    { label: 'Home',     href: '/' },
-                    { label: 'Tools',    href: '/overview' },
-                    { label: 'Blog',     href: '/blog' },
-                  ].map((l) => (
-                    <Link
-                      key={l.href}
-                      href={l.href}
-                      style={{ fontSize: 'var(--fs-sm)', color: 'var(--text-secondary)', transition: 'color var(--transition-fast)' }}
-                      className="footer-link"
-                    >
+                  {[{ label: 'Home', href: '/' }, { label: 'Tools', href: '/overview' }, { label: 'Blog', href: '/blog' }].map((l) => (
+                    <Link key={l.href} href={l.href} className="footer-link" style={{ fontSize: 'var(--fs-sm)', color: 'var(--text-secondary)', transition: 'color var(--transition-fast)' }}>
                       {l.label}
                     </Link>
                   ))}
                 </div>
-
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-sm)' }}>
-                  <span
-                    style={{
-                      fontSize: 'var(--fs-xs)',
-                      fontWeight: 'var(--fw-semibold)',
-                      color: 'var(--text-muted)',
-                      textTransform: 'uppercase',
-                      letterSpacing: '0.1em',
-                      marginBottom: 'var(--space-xs)',
-                    }}
-                  >
+                  <span style={{ fontSize: 'var(--fs-xs)', fontWeight: 'var(--fw-semibold)', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 'var(--space-xs)' }}>
                     Connect
                   </span>
-                  {[
-                    { label: 'GitHub',   href: 'https://github.com/Thiya11' },
-                  ].map((l) => (
-                    <a
-                      key={l.href}
-                      href={l.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{ fontSize: 'var(--fs-sm)', color: 'var(--text-secondary)', transition: 'color var(--transition-fast)' }}
-                    >
-                      {l.label}
-                    </a>
-                  ))}
+                  <a href="https://github.com/Thiya11" target="_blank" rel="noopener noreferrer" style={{ fontSize: 'var(--fs-sm)', color: 'var(--text-secondary)', transition: 'color var(--transition-fast)' }}>
+                    GitHub
+                  </a>
                 </div>
               </div>
             </div>
 
             {/* Footer bottom */}
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                paddingTop: 'var(--space-xl)',
-                borderTop: '1px solid var(--border-subtle)',
-                flexWrap: 'wrap',
-                gap: 'var(--space-sm)',
-              }}
-            >
+            <div style={{ paddingTop: 'var(--space-sm)', borderTop: '1px solid var(--border-subtle)' }}>
               <span style={{ fontSize: 'var(--fs-xs)', color: 'var(--text-muted)' }}>
-                © {new Date().getFullYear()} Kitsune Choas — Built in public
-              </span>
-              <span
-                style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: 'var(--fs-xs)',
-                  color: 'var(--text-muted)',
-                }}
-              >
-                Next.js + Turborepo
+                © {new Date().getFullYear()} Kitsune Chaos — Built in public
               </span>
             </div>
           </div>
         </footer>
+      </ThemeProvider>
       </body>
     </html>
   )
