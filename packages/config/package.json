@@ -1,0 +1,12 @@
+{
+  "name": "@kitsune/config",
+  "version": "0.1.0",
+  "private": true,
+  "exports": {
+    "./tsconfig": "./tsconfig.base.json",
+    "./tsconfig.base.json": "./tsconfig.base.json",
+    "./tailwind": "./tailwind.preset.js",
+    "./eslint": "./eslint.config.js"
+  },
+  "files": ["tsconfig.base.json", "tailwind.preset.js", "eslint.config.js"]
+}

@@ -1,0 +1,83 @@
+---
+title: "Why I Rebuilt Kitsune Chaos from Scratch"
+date: "2026-04-04"
+description: "The old version was a tangled jQuery mess. Here's why I threw it out and what the new stack looks like."
+tags: ["meta", "turborepo", "next.js", "react"]
+---
+
+# Why I Rebuilt Kitsune Chaos from Scratch
+
+Every interactive learning tool I've ever loved eventually dies. The Flash ones went first.
+The ones built on unmaintained jQuery plugins followed. I've rebuilt this project three times now,
+and each time I've gotten a little smarter about what actually matters.
+
+This is the story of the third rewrite — and why I'm reasonably confident it's the last one for a while.
+
+## What was wrong with the old version
+
+The original Kitsune Chaos was a single HTML page with inline scripts. It worked, barely.
+The pendulum simulator was a `<canvas>` element with 200 lines of procedural JavaScript living in a
+`<script>` tag. The Ohm's Law calculator was a form with `oninput` handlers.
+
+Shipping a new tool meant copy-pasting the whole page and editing it. There was no shared code.
+Every tool reimplemented the same slider, the same layout, the same color scheme — but slightly
+differently each time because I'd changed my mind between shipping them.
+
+The real breaking point: I wanted to add a blog. And I had absolutely nowhere to put it.
+
+## The new stack
+
+The new version is a **Turborepo monorepo** with four packages:
+
+- `@kitsune/physics` — pure TypeScript physics helpers (no React, no DOM)
+- `@kitsune/ui` — shared React components: `Slider`, `Panel`, `ToolShell`
+- `@kitsune/tools` — the actual interactive tools, built with React + Vite
+- `@kitsune/config` — shared TypeScript and Tailwind configs
+
+The `apps/web` Next.js app shells everything. It handles routing, SEO, and this blog.
+The tool components themselves have zero Next.js dependency — they're pure React and could
+theoretically be embedded anywhere.
+
+## Why separate the physics math from React?
+
+Because `V = I × R` doesn't need hooks.
+
+`@kitsune/physics` is plain TypeScript functions. You can unit test them without jsdom.
+You can import them in a Node script or a Cloudflare Worker. When I eventually add a
+signal path calculator or a projectile motion tool, the math gets added here first,
+and the React layer just calls it.
+
+## The tool page pattern
+
+Each tool page in Next.js is roughly:
+
+```tsx
+const OhmsLaw = dynamic(
+  () => import('@kitsune/tools').then(m => m.OhmsLaw),
+  { ssr: false, loading: () => <ToolSkeleton /> }
+)
+```
+
+Server-rendered: the page title, description, and category (for Google).
+Client-rendered: the actual interactive component.
+
+This means search engines see real content, and users don't get a blank screen
+while the JavaScript loads.
+
+## What's next
+
+The two tools live right now — Ohm's Law and the Pendulum Simulator — are just proof that the
+architecture works. The interesting ones are coming:
+
+- **RLC circuit analyzer** — impedance, phase angle, resonant frequency
+- **Projectile motion** — launch angle, drag, range optimization
+- **Wave interference** — superposition, standing waves, beats
+- **Lens equation** — thin lens, focal length, magnification
+
+I'm building these in public. The source is on GitHub. If you find a bug or want to
+suggest a tool, open an issue.
+
+---
+
+*Next post: the pendulum uses full RK4 integration instead of the small-angle approximation —
+here's why that matters and how much error you accumulate after 10 swings.*
