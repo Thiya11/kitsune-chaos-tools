@@ -32,7 +32,7 @@ const PIVOT_Y = 60
 const SCALE = 160 // pixels per metre of pendulum length at max (1.0 m)
 
 export function usePendulum(): PendulumHookState {
-  const [length, setLength] = useState(0.8)
+  const [length, setLength] = useState(1.5)
   const [gravity, setGravity] = useState(9.81)
   const [amplitude, setAmplitude] = useState(30) // degrees
   const [damping, setDamping] = useState(0)
