@@ -5,6 +5,21 @@ import { getAllPosts } from '@/lib/blog'
 export const metadata: Metadata = {
   title: 'Blog',
   description: 'Building Kitsune Chaos in public — design decisions, physics write-ups, and dev logs.',
+  alternates: {
+    canonical: 'https://kitsunechaos.com/blog',
+  },
+  openGraph: {
+    title: 'Blog — Kitsune Chaos',
+    description: 'Building Kitsune Chaos in public — design decisions, physics write-ups, and dev logs.',
+    url: 'https://kitsunechaos.com/blog',
+    siteName: 'Kitsune Chaos',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Blog — Kitsune Chaos',
+    description: 'Building Kitsune Chaos in public — design decisions, physics write-ups, and dev logs.',
+  },
 }
 
 export default function BlogIndexPage() {

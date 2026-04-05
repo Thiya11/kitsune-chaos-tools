@@ -1,0 +1,110 @@
+---
+title: "Cookie Consent Done Right — No Dark Patterns"
+date: "2026-04-05"
+description: "Most cookie banners are compliance theater. Here's how Kitsune Tools handles analytics consent without manipulating users."
+tags: ["meta", "privacy", "analytics", "gdpr"]
+author: "Thiya"
+---
+
+# Cookie Consent Done Right — No Dark Patterns
+
+Kitsune Tools added Google Analytics in v0.2.0. I want to understand which tools people
+actually use, how long they spend with them, and whether the mobile layout is working in
+practice. That data is genuinely useful for improving the site.
+
+But most cookie consent implementations are dishonest. A banner pops up, analytics loads
+in the background while the banner is still rendering, and the "reject" button is buried
+three taps deep in a preferences modal. The user technically consented by not leaving
+fast enough.
+
+That approach is not acceptable here. This post explains exactly how Kitsune Tools
+handles consent instead.
+
+## The rule: analytics does not load until you say yes
+
+This is the only rule that matters, and everything else follows from it.
+
+When you land on kitsunechaos.com, no Google Analytics script is injected. No tracking
+request goes out. The consent banner appears, and the page is fully usable — all the
+tools work, all the content is there — while you decide what to do.
+
+Only if you click **Accept all** does the GA script load and begin sending data.
+If you click **Reject all**, nothing loads. If you close the banner without choosing,
+nothing loads.
+
+## The implementation
+
+The consent layer is built on [vanilla-cookieconsent](https://cookieconsent.orestbida.com/),
+a lightweight library with no external dependencies and no phone-home behavior of its own.
+
+The `CookieConsentManager` component manages two cookie categories:
+
+**Necessary cookies** — pre-enabled and read-only. These are required for the site to
+function. There are currently none that Kitsune Tools sets itself, but the category exists
+because some browser security mechanisms use cookies we don't control.
+
+**Analytics cookies** — off by default. The user has to actively opt in. This is the
+correct default under GDPR. Pre-ticking analytics is not consent.
+
+When the user accepts analytics, `loadGA()` runs. It creates the GTM script tag,
+initialises `window.dataLayer`, and calls `gtag('config', ...)`. When the user rejects
+or later withdraws consent, `window['ga-disable-G-XXXXXXX']` is set to `true` —
+the official Google mechanism for disabling data collection even if the script is present.
+
+## Production-only tracking
+
+Analytics only activates on `kitsunechaos.com`. The `loadGA()` function checks
+`window.location.hostname` before doing anything. This means:
+
+- Local development (`localhost`) is never tracked.
+- Staging environments are never tracked.
+- If you fork the repo and run it yourself, you won't accidentally send data to my
+  GA property — and more importantly, I won't see your users in my analytics.
+
+## Why vanilla-cookieconsent instead of a paid service
+
+Services like Cookiebot, OneTrust, and CookiePro are the industry standard for larger
+sites. They handle consent logging, cross-domain sync, and automatic cookie scanning.
+They also load third-party scripts, cost money, and introduce an external dependency
+on a service whose privacy policy you now also have to disclose.
+
+For a site this size, that's overcomplicated. Vanilla-cookieconsent is an open source
+library that runs entirely client-side. There is no SaaS backend, no data sent to a
+third party to record your consent, no subscription. The consent preference is stored
+in a cookie on your own browser — `cc_cookie` — and nowhere else.
+
+## What the banner actually says
+
+The consent modal reads:
+
+> *We use analytics cookies (Google Analytics) to understand how people use our tools.
+> No personal data is sold.*
+
+That is the complete truth. GA collects page views, session duration, and rough
+geographic region (country level). It does not collect names, emails, or anything
+personally identifying. The data is used to improve the site and is never sold or
+shared with third parties.
+
+The preferences modal breaks this down by category with plain-language descriptions.
+There are no pre-ticked boxes, no "legitimate interest" clause, no accept button
+styled as a primary action while reject is greyed out.
+
+## The cookie that records your consent
+
+When you make a choice, `cc_cookie` is set in your browser. It records which categories
+you accepted and when. On your next visit, the banner does not appear again — your
+preference is remembered. If you want to change it, the preferences modal is
+accessible at any time.
+
+The cookie expires after 182 days (six months), after which you'll be asked again.
+That's a reasonable window — long enough not to be annoying, short enough that a
+change of mind doesn't require hunting through browser settings.
+
+## The honest summary
+
+- Analytics loads only after explicit opt-in.
+- Rejecting consent actually stops tracking.
+- No third-party consent service. No data sold. No dark patterns.
+
+If you think something here is wrong or could be better, the source is on GitHub.
+Open an issue.

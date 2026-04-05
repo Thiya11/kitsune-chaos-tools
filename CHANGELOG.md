@@ -5,10 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.1] - 2026-04-05
+
+### Added
+- `author` field in `BlogPost` interface and frontmatter — surfaced in metadata and JSON-LD
+- JSON-LD `BlogPosting` structured data on all blog post pages
+- Twitter card metadata on blog post and blog index pages
+- `alternates.canonical` on blog post and blog index pages
+- `keywords` and `authors` metadata fields on blog post pages
+- OpenGraph `url`, `siteName`, `authors`, and `tags` on blog post pages
+- OpenGraph block and Twitter card on blog index page
+- Two new blog post URLs added to `sitemap.xml`
+- License and content copyright section added to `README.md`
+
 ## [0.2.0] - 2026-04-05
 
 ### Added
-- **Google Analytics** — GA script injected via `layout.tsx` for page-view tracking
+- **Cookie consent** — `CookieConsentManager` component using `vanilla-cookieconsent`; analytics opt-in by default, GA disabled on rejection
+- **Google Analytics** — GA script gated behind cookie consent, production-only (`kitsunechaos.com`)
+- **LICENSE** — MIT license added
+- **CHANGELOG** — this file
 - **Dark / Light theme system** — `ThemeProvider` and `ThemeToggle` components with full CSS variable support across all pages and tools
 - **Mobile navigation** — new `MobileNav` component with responsive hamburger menu
 - **SEO improvements** — `robots.txt` and `sitemap.xml` added to `public/`

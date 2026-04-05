@@ -6,6 +6,14 @@ Interactive STEM tools for physics, electronics, and more — built as a Turbore
 
 ---
 
+## License
+
+**Code** — MIT. See [LICENSE](LICENSE). You may use, fork, and build on the code with attribution.
+
+**Content & brand** — All rights reserved. Blog posts (`apps/web/content/`), brand assets (`apps/web/public/brand/`), and site copy are copyright © 2026 Kitsune Chaos and are **not** covered by the MIT license. You may not republish or redistribute the written content or brand assets without permission.
+
+---
+
 ## Stack
 
 | Layer | Technology |

@@ -4,6 +4,8 @@ import { notFound } from 'next/navigation'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { getAllPosts, getPostBySlug } from '@/lib/blog'
 
+const BASE_URL = 'https://kitsunechaos.com'
+
 interface Props {
   params: Promise<{ slug: string }>
 }
@@ -16,14 +18,31 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
   const post = getPostBySlug(slug)
   if (!post) return {}
+
+  const url = `${BASE_URL}/blog/${slug}`
+
   return {
     title: post.title,
     description: post.description,
+    keywords: post.tags,
+    authors: [{ name: post.author }],
+    alternates: {
+      canonical: url,
+    },
     openGraph: {
       title: post.title,
       description: post.description,
       type: 'article',
+      url,
+      siteName: 'Kitsune Chaos',
       publishedTime: post.date,
+      authors: [post.author],
+      tags: post.tags,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description: post.description,
     },
   }
 }
@@ -33,8 +52,40 @@ export default async function BlogPostPage({ params }: Props) {
   const post = getPostBySlug(slug)
   if (!post) notFound()
 
+  const url = `${BASE_URL}/blog/${slug}`
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.title,
+    description: post.description,
+    datePublished: post.date,
+    dateModified: post.date,
+    url,
+    author: {
+      '@type': 'Person',
+      name: post.author,
+      url: BASE_URL,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Kitsune Chaos',
+      url: BASE_URL,
+    },
+    keywords: post.tags.join(', '),
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': url,
+    },
+  }
+
   return (
     <div className="mx-auto w-full max-w-3xl px-6 py-12">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
       {/* Back link */}
       <Link
         href="/blog"

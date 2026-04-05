@@ -8,6 +8,7 @@ export interface BlogPost {
   date: string
   description: string
   tags: string[]
+  author: string
   /** Reading time string, e.g. "4 min read" */
   readingTime: string
   content: string
@@ -34,6 +35,7 @@ export function getAllPosts(): Omit<BlogPost, 'content'>[] {
       date: data['date'] as string ?? '',
       description: data['description'] as string ?? '',
       tags: (data['tags'] as string[]) ?? [],
+      author: data['author'] as string ?? 'Kitsune Chaos',
       readingTime,
     }
   })
@@ -57,6 +59,7 @@ export function getPostBySlug(slug: string): BlogPost | null {
     date: data['date'] as string ?? '',
     description: data['description'] as string ?? '',
     tags: (data['tags'] as string[]) ?? [],
+    author: data['author'] as string ?? 'Kitsune Chaos',
     readingTime: `${minutes} min read`,
     content,
   }

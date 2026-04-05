@@ -1,0 +1,100 @@
+---
+title: "Why Kitsune Tools is MIT Licensed"
+date: "2026-04-05"
+description: "We considered CC BY-NC, GPL, and MIT. Here's the full reasoning behind choosing MIT — and what open source actually means."
+tags: ["meta", "open-source", "licensing"]
+author: "Thiya"
+---
+
+# Why Kitsune Tools is MIT Licensed
+
+Before v0.2.0, Kitsune Tools had no license file. That sounds harmless — the code was on GitHub,
+anyone could read it. But in legal terms, no license means all rights reserved. Nobody could
+fork it, copy a snippet into their own project, or contribute back without technically infringing
+copyright. The opposite of what this project is for.
+
+So I picked a license. Here's the full thinking.
+
+## What I actually wanted
+
+Three things:
+
+1. **Attribution.** If someone uses this code, I want my name to stay on it.
+2. **Freedom to use.** I don't want to make it hard for students, educators, or other developers
+   to build on top of these tools.
+3. **No legal weight on contributors.** The license shouldn't require a lawyer to understand.
+
+What I didn't particularly care about: stopping companies from using it commercially.
+The tools are physics simulators. If a company wants to embed a pendulum demo in their product
+and credits Kitsune Tools, that's fine. That's exactly the kind of reach I want.
+
+## The licenses I considered
+
+### CC BY-NC 4.0 — Attribution + NonCommercial
+
+This one is tempting on the surface. It sounds protective. You have to credit me, and you
+can't sell it. What's not to like?
+
+The problem: **CC BY-NC is not an open source license.** The
+[Open Source Definition](https://opensource.org/osd), maintained by the Open Source Initiative,
+has ten criteria a license must meet. Criterion number six explicitly states:
+
+> *The license shall not restrict anyone from making use of the program in a specific field of
+> endeavor.*
+
+"No commercial use" violates that directly. A project under CC BY-NC is *source-available* —
+people can read the code, but they can't freely use it. That's a meaningful difference.
+
+Beyond the definitional issue, CC licenses aren't designed for software at all. They don't
+address patents, they have no concept of compilation or linking, and the legal language is
+written for creative works like music and writing. Applying CC to code creates ambiguity that
+nobody wants.
+
+### GPL v3 — Copyleft
+
+GPL is genuinely open source. It's used by Linux, Git, and thousands of major projects.
+The core mechanic: if you distribute a modified version of GPL software, you have to open-source
+your modifications under the same license. It's self-perpetuating openness.
+
+For a project like this, GPL would mean: if you fork Kitsune Tools and ship your own version,
+your code has to be public too. That has real protective value against corporations quietly
+taking the project and making it proprietary.
+
+I seriously considered this. But for a toolkit of interactive physics tools, it felt heavier
+than the actual risk. The pendulum simulator is not the kind of thing a Fortune 500 company
+is going to steal and lock up. The copyleft clause mostly adds friction for the small developers
+and students who are the actual audience here.
+
+### MIT — Permissive
+
+MIT is two paragraphs. It says: do whatever you want with this, keep the copyright notice,
+don't sue me if it breaks. That's it.
+
+Attribution is baked in — the license notice with my name has to stay in any copy or
+substantial use. Commercial use is permitted. Derivatives don't have to be open source.
+
+It's the most widely used open source license in the JavaScript ecosystem for a reason.
+NPM is full of MIT packages. The friction to use, contribute to, and build on MIT code
+is essentially zero.
+
+## Why MIT won
+
+The goal of this project is for people to learn from it — the tools, and the code behind them.
+A restrictive license works against that goal. MIT maximises the chance that a student,
+educator, or developer can pick up this code and do something useful with it without stopping
+to check whether their use case is allowed.
+
+The attribution requirement means the project still gets credited wherever it ends up.
+That's the only protection I actually cared about.
+
+If the project eventually grows to the point where copyleft starts making sense, that's a
+conversation for a future major version. For now, MIT is correct.
+
+## What this means for contributors
+
+If you open a pull request and it's merged, your contribution is MIT licensed. No CLA,
+no contributor agreement, no legal overhead. Your code is in the project under the same
+terms as everything else.
+
+The license file lives at the root of the repository. It's short enough to read in
+under a minute.
