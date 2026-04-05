@@ -2,7 +2,7 @@ import { getAllPosts } from '@/lib/blog'
 
 const BASE_URL = 'https://kitsunechaos.com'
 
-export const dynamic = 'force-static'
+export const dynamic = 'force-dynamic'
 
 function escapeXml(str: string): string {
   return str
@@ -21,27 +21,28 @@ export async function GET() {
       const url = `${BASE_URL}/blog/${post.slug}`
       const pubDate = new Date(post.date).toUTCString()
       const categories = post.tags
-        .map((tag) => `<category>${escapeXml(tag)}</category>`)
-        .join('')
+        .map((tag) => `      <category>${escapeXml(tag)}</category>`)
+        .join('\n')
 
-      return `
-    <item>
+      return `    <item>
       <title>${escapeXml(post.title)}</title>
       <link>${url}</link>
       <guid isPermaLink="true">${url}</guid>
       <pubDate>${pubDate}</pubDate>
       <description>${escapeXml(post.description)}</description>
-      <author>${escapeXml(post.author)}</author>
-      ${categories}
+      <dc:creator>${escapeXml(post.author)}</dc:creator>
+${categories}
     </item>`
     })
-    .join('')
+    .join('\n')
 
   const lastBuildDate =
     posts[0] != null ? new Date(posts[0].date ?? new Date()).toUTCString() : new Date().toUTCString()
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0"
+  xmlns:atom="http://www.w3.org/2005/Atom"
+  xmlns:dc="http://purl.org/dc/elements/1.1/">
   <channel>
     <title>Kitsune Chaos Blog</title>
     <link>${BASE_URL}/blog</link>
@@ -49,7 +50,7 @@ export async function GET() {
     <language>en-us</language>
     <lastBuildDate>${lastBuildDate}</lastBuildDate>
     <atom:link href="${BASE_URL}/feed.xml" rel="self" type="application/rss+xml"/>
-    ${items}
+${items}
   </channel>
 </rss>`
 
