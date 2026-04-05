@@ -13,6 +13,11 @@ export const metadata: Metadata = {
   },
   description: 'Interactive STEM tools for physics, electronics, and more — built in the open.',
   metadataBase: new URL('https://kitsunechaos.com'),
+  alternates: {
+    types: {
+      'application/rss+xml': 'https://kitsunechaos.com/feed.xml',
+    },
+  },
   openGraph: {
     type: 'website',
     siteName: 'Kitsune Chaos',
