@@ -45,5 +45,25 @@
   <lastmod>2026-04-05T00:00:00+00:00</lastmod>
   <priority>0.64</priority>
 </url>
+<url>
+  <loc>https://kitsunechaos.com/about</loc>
+  <lastmod>2026-04-05T00:00:00+00:00</lastmod>
+  <priority>0.70</priority>
+</url>
+<url>
+  <loc>https://kitsunechaos.com/contact</loc>
+  <lastmod>2026-04-05T00:00:00+00:00</lastmod>
+  <priority>0.60</priority>
+</url>
+<url>
+  <loc>https://kitsunechaos.com/privacy</loc>
+  <lastmod>2026-04-05T00:00:00+00:00</lastmod>
+  <priority>0.40</priority>
+</url>
+<url>
+  <loc>https://kitsunechaos.com/cookies</loc>
+  <lastmod>2026-04-05T00:00:00+00:00</lastmod>
+  <priority>0.40</priority>
+</url>
 
 </urlset>

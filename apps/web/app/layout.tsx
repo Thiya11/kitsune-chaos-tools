@@ -113,7 +113,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   <span style={{ fontSize: 'var(--fs-xs)', fontWeight: 'var(--fw-semibold)', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 'var(--space-xs)' }}>
                     Navigate
                   </span>
-                  {[{ label: 'Home', href: '/' }, { label: 'Tools', href: '/overview' }, { label: 'Blog', href: '/blog' }].map((l) => (
+                  {[{ label: 'Home', href: '/' }, { label: 'Tools', href: '/overview' }, { label: 'Blog', href: '/blog' }, { label: 'About', href: '/about' }, { label: 'Contact', href: '/contact' }].map((l) => (
                     <Link key={l.href} href={l.href} className="footer-link" style={{ fontSize: 'var(--fs-sm)', color: 'var(--text-secondary)', transition: 'color var(--transition-fast)' }}>
                       {l.label}
                     </Link>
@@ -126,6 +126,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   <a href="https://github.com/Thiya11" target="_blank" rel="noopener noreferrer" style={{ fontSize: 'var(--fs-sm)', color: 'var(--text-secondary)', transition: 'color var(--transition-fast)' }}>
                     GitHub
                   </a>
+                  <a href="https://www.linkedin.com/in/thiyagu-arunachalam-b6a901159/" target="_blank" rel="noopener noreferrer" style={{ fontSize: 'var(--fs-sm)', color: 'var(--text-secondary)', transition: 'color var(--transition-fast)' }}>
+                    LinkedIn
+                  </a>
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-sm)' }}>
+                  <span style={{ fontSize: 'var(--fs-xs)', fontWeight: 'var(--fw-semibold)', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 'var(--space-xs)' }}>
+                    Legal
+                  </span>
+                  {[{ label: 'Privacy Policy', href: '/privacy' }, { label: 'Cookie Policy', href: '/cookies' }].map((l) => (
+                    <Link key={l.href} href={l.href} className="footer-link" style={{ fontSize: 'var(--fs-sm)', color: 'var(--text-secondary)', transition: 'color var(--transition-fast)' }}>
+                      {l.label}
+                    </Link>
+                  ))}
                 </div>
               </div>
             </div>

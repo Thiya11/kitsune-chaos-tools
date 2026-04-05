@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.2] - 2026-04-05
+
+### Added
+- `/about` page — project overview, tech stack grid, creator section (Thiyagu Arunachalam) with GitHub, LinkedIn, and Blog links
+- `/contact` page — GitHub Issues, GitHub Discussions, and email contact cards
+- `/privacy` page — GDPR-compliant privacy policy (GA4 data handling, retention, user rights)
+- `/cookies` page — cookie policy with necessity/analytics tables and management instructions
+- JSON-LD `AboutPage` schema on `/about`
+- JSON-LD `ContactPage` schema on `/contact`
+- `robots: noindex` on `/privacy` and `/cookies` to exclude legal pages from search indexing
+- LinkedIn link added to footer Connect section
+- Legal section added to footer with Privacy Policy and Cookie Policy links
+- All new pages added to `sitemap.xml`
+
+### Changed
+- Footer Navigate section extended with About and Contact links
+- Creator name updated to "Thiyagu Arunachalam" on About page
+- All contact emails standardised to `support@kitsunechaos.com`
+
 ## [0.2.1] - 2026-04-05
 
 ### Added
