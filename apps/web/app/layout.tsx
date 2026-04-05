@@ -60,7 +60,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 color: 'inherit',
               }}
             >
-              <img alt="Kitsune Chaos" className="h-[28px] w-auto" src="/brand/favicon.ico" />
+              <img alt="Kitsune Chaos" className="logo-img h-[38px] w-[38px] rounded-full object-contain bg-white p-0.5" src="/brand/logo.png" />
               <span className="tracking-widest nav-logo-text">KITSUNE<span className="gradient-text">CHAOS</span></span>
             </Link>
 
@@ -99,7 +99,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               {/* Brand */}
               <div style={{ maxWidth: '280px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-sm)', fontSize: 'var(--fs-lg)', fontWeight: 'var(--fw-bold)', letterSpacing: '-0.02em', marginBottom: 'var(--space-sm)' }}>
-                  <img alt="Kitsune Chaos" className="h-[28px] w-auto" src="/brand/favicon.ico" />
+                  <img alt="Kitsune Chaos" className="logo-img h-[38px] w-[38px] rounded-full object-contain bg-white p-0.5" src="/brand/logo.png" />
                   <span>Kitsune Chaos</span>
                 </div>
                 <p style={{ color: 'var(--text-secondary)', fontSize: 'var(--fs-sm)', lineHeight: 1.6 }}>

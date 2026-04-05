@@ -415,6 +415,15 @@
     color: var(--text-secondary);
   }
 
+  /* Logo ring — blue glow in light mode only */
+  .logo-img {
+    box-shadow: none;
+  }
+
+  [data-theme='light'] .logo-img {
+    box-shadow: 0 0 0 2px #bfdbfe, 0 0 10px 3px #93c5fd;
+  }
+
   /* Nav links */
   .nav-link {
     position: relative;
