@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.1] - 2026-04-05
+
+### Added
+- `vitest` test runner added to `@kitsunechaos/physics`
+- `test` and `test:watch` scripts added to `packages/physics/package.json`
+- `ohms.test.ts` — 52 tests covering `solveOhms` (all three modes, power invariants, divide-by-zero guards, round-trip consistency, stress suite), `sigFigs`, and `formatSI`
+- `pendulum.test.ts` — 52 tests covering `period` (scaling laws, inverse recovery), `periodCorrected` (Bernoulli factor, monotonicity, symmetry), `stepRK4` (energy conservation over 10 periods, damping decay, time-reversal symmetry, numerical stability at large angles), and `pendulumBobXY` (cardinal positions, distance invariant, pivot offset, left/right symmetry)
+
+### Changed
+- Package scope renamed from `@kitsune/` to `@kitsunechaos/` across all packages and imports to match npm organisation name
+
 ## [1.0.0] - 2026-04-05
 
 First public release. Site live at [kitsunechaos.com](https://kitsunechaos.com).

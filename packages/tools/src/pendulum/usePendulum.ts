@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
-import { stepRK4, period, pendulumBobXY, type PendulumState } from '@kitsune/physics'
+import { stepRK4, period, pendulumBobXY, type PendulumState } from '@kitsunechaos/physics'
 
 export interface PendulumHookState {
   // params

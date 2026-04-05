@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  transpilePackages: ['@kitsune/tools', '@kitsune/ui', '@kitsune/physics'],
+  transpilePackages: ['@kitsunechaos/tools', '@kitsunechaos/ui', '@kitsunechaos/physics'],
   experimental: {
     optimizePackageImports: ['framer-motion'],
   },

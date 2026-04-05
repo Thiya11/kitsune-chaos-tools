@@ -2,7 +2,7 @@
 
 import React, { useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Slider, Panel, ToolShell } from '@kitsune/ui'
+import { Slider, Panel, ToolShell } from '@kitsunechaos/ui'
 import { useOhmsLaw, type SolveFor } from './useOhmsLaw'
 
 const meta = {

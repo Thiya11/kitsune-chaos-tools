@@ -1,5 +1,5 @@
 {
-  "extends": "@kitsune/config/tsconfig.base.json",
+  "extends": "@kitsunechaos/config/tsconfig.base.json",
   "compilerOptions": {
     "plugins": [{ "name": "next" }],
     "paths": {

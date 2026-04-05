@@ -87,8 +87,8 @@ packages/tools/src/lens-equation/
 
 Rules:
 - The component accepts **no required props** — all state is internal
-- Use `@kitsune/ui` for all controls (`Slider`, `Panel`, `ToolShell`)
-- Use `@kitsune/physics` for math — keep components dumb
+- Use `@kitsunechaos/ui` for all controls (`Slider`, `Panel`, `ToolShell`)
+- Use `@kitsunechaos/physics` for math — keep components dumb
 - No Next.js imports anywhere in `packages/`
 
 Export from `packages/tools/src/index.ts`:
@@ -118,7 +118,7 @@ In `apps/web/app/tools/[slug]/page.tsx`, add the slug to `TOOL_COMPONENTS`:
 
 ```ts
 'lens-equation': dynamic(
-  () => import('@kitsune/tools').then((m) => ({ default: m.LensEquation })),
+  () => import('@kitsunechaos/tools').then((m) => ({ default: m.LensEquation })),
   { ssr: false, loading: () => <ToolSkeleton /> },
 ),
 ```
@@ -147,11 +147,11 @@ The blog index and article pages are automatically generated.
 ## Package dependency rules
 
 ```
-apps/web  →  @kitsune/tools, @kitsune/ui, @kitsune/config
-@kitsune/tools  →  @kitsune/physics, @kitsune/ui
-@kitsune/ui  →  (React peer dep only)
-@kitsune/physics  →  (no deps)
-@kitsune/config  →  (no deps)
+apps/web  →  @kitsunechaos/tools, @kitsunechaos/ui, @kitsunechaos/config
+@kitsunechaos/tools  →  @kitsunechaos/physics, @kitsunechaos/ui
+@kitsunechaos/ui  →  (React peer dep only)
+@kitsunechaos/physics  →  (no deps)
+@kitsunechaos/config  →  (no deps)
 ```
 
-No circular dependencies. `@kitsune/physics` must never import React.
+No circular dependencies. `@kitsunechaos/physics` must never import React.

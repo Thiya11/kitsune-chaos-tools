@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react'
-import { solveOhms, formatSI, type OhmsResult } from '@kitsune/physics'
+import { solveOhms, formatSI, type OhmsResult } from '@kitsunechaos/physics'
 
 export type SolveFor = 'V' | 'I' | 'R'
 

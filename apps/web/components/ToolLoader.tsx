@@ -4,12 +4,12 @@ import dynamic from 'next/dynamic'
 import { ToolSkeleton } from './ToolSkeleton'
 
 const OhmsLaw = dynamic(
-  () => import('@kitsune/tools').then((m) => ({ default: m.OhmsLaw })),
+  () => import('@kitsunechaos/tools').then((m) => ({ default: m.OhmsLaw })),
   { ssr: false, loading: () => <ToolSkeleton /> },
 )
 
 const PendulumSim = dynamic(
-  () => import('@kitsune/tools').then((m) => ({ default: m.PendulumSim })),
+  () => import('@kitsunechaos/tools').then((m) => ({ default: m.PendulumSim })),
   { ssr: false, loading: () => <ToolSkeleton /> },
 )
 

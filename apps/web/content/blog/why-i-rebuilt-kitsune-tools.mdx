@@ -30,10 +30,10 @@ The real breaking point: I wanted to add a blog. And I had absolutely nowhere to
 
 The new version is a **Turborepo monorepo** with four packages:
 
-- `@kitsune/physics` — pure TypeScript physics helpers (no React, no DOM)
-- `@kitsune/ui` — shared React components: `Slider`, `Panel`, `ToolShell`
-- `@kitsune/tools` — the actual interactive tools, built with React + Vite
-- `@kitsune/config` — shared TypeScript and Tailwind configs
+- `@kitsunechaos/physics` — pure TypeScript physics helpers (no React, no DOM)
+- `@kitsunechaos/ui` — shared React components: `Slider`, `Panel`, `ToolShell`
+- `@kitsunechaos/tools` — the actual interactive tools, built with React + Vite
+- `@kitsunechaos/config` — shared TypeScript and Tailwind configs
 
 The `apps/web` Next.js app shells everything. It handles routing, SEO, and this blog.
 The tool components themselves have zero Next.js dependency — they're pure React and could
@@ -43,7 +43,7 @@ theoretically be embedded anywhere.
 
 Because `V = I × R` doesn't need hooks.
 
-`@kitsune/physics` is plain TypeScript functions. You can unit test them without jsdom.
+`@kitsunechaos/physics` is plain TypeScript functions. You can unit test them without jsdom.
 You can import them in a Node script or a Cloudflare Worker. When I eventually add a
 signal path calculator or a projectile motion tool, the math gets added here first,
 and the React layer just calls it.
@@ -54,7 +54,7 @@ Each tool page in Next.js is roughly:
 
 ```tsx
 const OhmsLaw = dynamic(
-  () => import('@kitsune/tools').then(m => m.OhmsLaw),
+  () => import('@kitsunechaos/tools').then(m => m.OhmsLaw),
   { ssr: false, loading: () => <ToolSkeleton /> }
 )
 ```

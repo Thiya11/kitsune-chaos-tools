@@ -1,5 +1,5 @@
 {
-  "name": "@kitsune/web",
+  "name": "@kitsunechaos/web",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,9 +10,9 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@kitsune/config": "*",
-    "@kitsune/tools": "*",
-    "@kitsune/ui": "*",
+    "@kitsunechaos/config": "*",
+    "@kitsunechaos/tools": "*",
+    "@kitsunechaos/ui": "*",
     "framer-motion": "^11.2.10",
     "gray-matter": "^4.0.3",
     "next": "^16.2.2",
@@ -25,7 +25,7 @@
     "vanilla-cookieconsent": "^3.1.0"
   },
   "devDependencies": {
-    "@kitsune/config": "*",
+    "@kitsunechaos/config": "*",
     "@types/node": "^20.14.2",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",

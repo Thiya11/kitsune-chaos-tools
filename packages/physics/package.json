@@ -1,5 +1,5 @@
 {
-  "name": "@kitsune/physics",
+  "name": "@kitsunechaos/physics",
   "version": "0.1.0",
   "private": true,
   "main": "./src/index.ts",
@@ -7,8 +7,13 @@
   "exports": {
     ".": "./src/index.ts"
   },
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
   "devDependencies": {
-    "@kitsune/config": "*",
-    "typescript": "^5.4.5"
+    "@kitsunechaos/config": "*",
+    "typescript": "^5.4.5",
+    "vitest": "^4.1.2"
   }
 }

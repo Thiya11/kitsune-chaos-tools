@@ -1,4 +1,4 @@
-const preset = require('@kitsune/config/tailwind')
+const preset = require('@kitsunechaos/config/tailwind')
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {

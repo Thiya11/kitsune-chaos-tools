@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Slider, Panel, ToolShell } from '@kitsune/ui'
+import { Slider, Panel, ToolShell } from '@kitsunechaos/ui'
 import { usePendulum } from './usePendulum'
 
 function useSvgColors() {
