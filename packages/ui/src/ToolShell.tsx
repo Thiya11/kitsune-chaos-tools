@@ -90,7 +90,10 @@ export function ToolShell({ meta, children, sidebar }: ToolShellProps) {
         )}
 
         {/* Canvas / main area */}
-        <main style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden', minWidth: 0 }}>
+        <main
+          className="tool-shell-main"
+          style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden', minWidth: 0 }}
+        >
           {children}
         </main>
       </div>

@@ -620,6 +620,14 @@
   overflow-y: auto;
 }
 
+.tool-shell-main {
+  order: 2;
+}
+
+.tool-shell-sidebar {
+  order: 1;
+}
+
 /* ===========================
    Responsive — Hero
    =========================== */
@@ -692,11 +700,16 @@
   }
 
   .tool-shell-sidebar {
+    order: 2;
     width: 100%;
     border-right: none;
     border-bottom: 1px solid var(--border-subtle);
     overflow-y: visible;
     padding: 1rem;
+  }
+
+  .tool-shell-main {
+    order: 1;
   }
 
   .footer-top {
