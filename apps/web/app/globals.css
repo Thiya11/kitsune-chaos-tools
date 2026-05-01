@@ -543,6 +543,107 @@
   .prose-kitsune table { width: 100%; font-size: 0.875rem; margin-bottom: 1rem; }
   .prose-kitsune th { text-align: left; font-weight: var(--fw-semibold); color: var(--text-muted); border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; }
   .prose-kitsune td { border-bottom: 1px solid var(--border-subtle); padding: 0.5rem 0; color: var(--text-secondary); }
+
+  .tool-seo-content {
+    padding-top: var(--space-3xl);
+    padding-bottom: var(--space-4xl);
+  }
+
+  .tool-seo-header {
+    max-width: 760px;
+    margin-bottom: var(--space-2xl);
+  }
+
+  .tool-seo-header h1 {
+    margin-top: var(--space-sm);
+    font-size: var(--fs-3xl);
+  }
+
+  .tool-formula {
+    padding: var(--space-lg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background: var(--bg-card);
+  }
+
+  .tool-formula-expression {
+    font-family: var(--font-mono);
+    font-size: var(--fs-xl);
+    color: var(--text-primary) !important;
+  }
+
+  .tool-example-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--space-md);
+  }
+
+  .tool-example {
+    padding: var(--space-md);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    background: var(--bg-card);
+  }
+
+  .tool-example h3 {
+    margin-top: 0;
+    font-size: var(--fs-base);
+  }
+
+  .tool-example p {
+    margin-bottom: 0;
+  }
+
+  .tool-faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .tool-faq-item {
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    background: var(--bg-card);
+    padding: var(--space-md);
+  }
+
+  .tool-faq-item summary {
+    cursor: pointer;
+    color: var(--text-primary);
+    font-weight: var(--fw-semibold);
+  }
+
+  .tool-faq-item p {
+    margin-top: var(--space-md);
+    margin-bottom: 0;
+  }
+
+  .tool-related-links div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+
+  .tool-related-links a {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 0.65rem 0.85rem;
+    color: var(--text-secondary);
+    background: var(--bg-card);
+  }
+
+  .tool-related-links span {
+    color: var(--text-primary);
+    font-weight: var(--fw-semibold);
+  }
+
+  .tool-related-links small {
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
 }
 
 /* ===========================

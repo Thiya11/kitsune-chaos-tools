@@ -1,0 +1,121 @@
+---
+title: "How to Use Interactive STEM Tools to Learn Physics and Electronics"
+date: "2026-05-01"
+description: "A practical guide to learning STEM with Kitsune Chaos: use the Ohm's Law Calculator and Pendulum Simulator as active experiments, not passive reference pages."
+tags: ["stem", "physics", "electronics", "tools", "learning"]
+author: "Thiya"
+---
+
+# How to Use Interactive STEM Tools to Learn Physics and Electronics
+
+Interactive tools work best when you treat them like small experiments. A formula tells you what should happen. A simulator or calculator lets you test it, change one value, and see whether your intuition was right.
+
+That is the point of Kitsune Chaos. The site is small on purpose right now: there are two live tools, the [Ohm's Law Calculator](/tools/ohms-law) and the [Pendulum Simulator](/tools/pendulum). Both are built to make a STEM idea feel less abstract.
+
+If you want the complete list, start with [All Tools](/overview). If you want to jump straight into circuits, open the [Ohm's Law Calculator](/tools/ohms-law). If you want motion, gravity, and period, start with the [Pendulum Simulator](/tools/pendulum).
+
+## Why interactive STEM tools help
+
+Most STEM topics have two layers:
+
+- the rule, formula, or model
+- the behavior you can observe when values change
+
+Textbooks are good at the first layer. Interactive tools are better at the second.
+
+For example, the formula `V = I x R` is short, but it is easy to memorize without understanding. The [Ohm's Law Calculator](/tools/ohms-law) turns it into a working relationship between voltage, current, and resistance. Change resistance and current responds. Change voltage and the circuit readout changes with it.
+
+The same thing happens in physics. The pendulum period formula explains why length matters, but the [Pendulum Simulator](/tools/pendulum) lets you watch a longer pendulum slow down. That small visual feedback loop makes the formula easier to trust.
+
+## Start with Ohm's Law for electronics
+
+If you are learning circuits, the [Ohm's Law Calculator](/tools/ohms-law) is the best first tool on Kitsune Chaos.
+
+Ohm's Law describes the relationship between voltage, current, and resistance:
+
+```text
+V = I x R
+```
+
+Voltage is measured in volts. Current is measured in amps. Resistance is measured in ohms. Once you know any two of those values, you can calculate the third.
+
+Use the [Ohm's Law Calculator](/tools/ohms-law) when you want to:
+
+- calculate voltage from current and resistance
+- calculate current from voltage and resistance
+- calculate resistance from voltage and current
+- check whether a circuit value looks realistic
+- build intuition for how resistance limits current
+
+A useful way to study is to make a prediction before touching the controls. If resistance doubles, what should happen to current? After you answer, test it in the [Ohm's Law Calculator](/tools/ohms-law). That habit turns a calculator into a learning tool.
+
+## Use the Pendulum Simulator for physics intuition
+
+The [Pendulum Simulator](/tools/pendulum) is a good first physics tool because pendulum motion is easy to see but rich enough to teach real modeling.
+
+A simple pendulum swings under gravity. For small starting angles, it can approximate simple harmonic motion. The period formula is:
+
+```text
+T = 2pi sqrt(L / g)
+```
+
+That means the swing time depends mainly on length and gravity. In the ideal model, mass does not significantly change the period.
+
+Use the [Pendulum Simulator](/tools/pendulum) to test questions like:
+
+- What happens when the pendulum gets longer?
+- Why does weaker gravity make the period larger?
+- Does changing mass affect the period?
+- When does a large starting angle stop matching the simple formula closely?
+
+The fastest way to learn from the [Pendulum Simulator](/tools/pendulum) is to change one value at a time. Move length, observe the period. Reset. Move gravity, observe the period. Reset again. That pattern keeps the cause and effect clean.
+
+## A simple study loop for both tools
+
+Use the same loop for the [Ohm's Law Calculator](/tools/ohms-law) and the [Pendulum Simulator](/tools/pendulum):
+
+1. Read the formula.
+2. Predict what will happen when one value changes.
+3. Change only that value.
+4. Compare the result with your prediction.
+5. Write one sentence explaining why it happened.
+
+That final sentence matters. If you can explain the result, you are not just using a tool. You are learning the model.
+
+For circuits, that might sound like: "Current decreased because resistance increased while voltage stayed fixed." For pendulums, it might be: "The period increased because length appears inside the square root of the pendulum formula."
+
+## Link the ideas together
+
+The two live Kitsune Chaos tools cover different subjects, but they teach the same skill: reasoning with models.
+
+The [Ohm's Law Calculator](/tools/ohms-law) is about a direct relationship. Voltage, current, and resistance are tightly connected. If one changes, another must respond.
+
+The [Pendulum Simulator](/tools/pendulum) is about a physical model with assumptions. The simple formula works best for small angles. When the angle grows, the model starts to become less exact.
+
+That contrast is useful. STEM is not only about getting an answer. It is about knowing when a formula applies, what units it expects, and what assumptions are hiding inside it.
+
+## Where to go next on Kitsune Chaos
+
+If you are here for electronics, spend a few minutes with the [Ohm's Law Calculator](/tools/ohms-law), then read the project background in [Why I Rebuilt Kitsune Chaos from Scratch](/blog/why-i-rebuilt-kitsune-tools). That post explains why the math is separated from the React interface, which matters for keeping tools testable.
+
+If you are here for physics, start with the [Pendulum Simulator](/tools/pendulum), then compare what you see with the explanation on the tool page itself. The simulator is the experiment; the written section underneath is the lab note.
+
+If you are just exploring, use [All Tools](/overview) as the hub. Right now it links to the two live tools: [Ohm's Law Calculator](/tools/ohms-law) and [Pendulum Simulator](/tools/pendulum). As more tools become live, that page will become the main map of the site.
+
+## FAQ
+
+### Are these tools for students or developers?
+
+Both. The [Ohm's Law Calculator](/tools/ohms-law) and [Pendulum Simulator](/tools/pendulum) are designed for students learning the concepts, but the open-source code is also useful for developers who want to see how interactive STEM tools are built.
+
+### Should I use the tool page or this article first?
+
+Use the tool page first if you already know what you want to calculate or simulate. Use this article first if you want a study path through the live Kitsune Chaos tools.
+
+### Why are there only two live tools?
+
+Because the goal is to ship real, useful tools instead of a long list of empty pages. The current live tools are the [Ohm's Law Calculator](/tools/ohms-law) and [Pendulum Simulator](/tools/pendulum), and the [All Tools](/overview) page reflects that.
+
+### Do the tools replace learning the formulas?
+
+No. They make the formulas easier to understand. You should still know what `V = I x R` means before using the [Ohm's Law Calculator](/tools/ohms-law), and you should still know what the pendulum formula is doing before relying on the [Pendulum Simulator](/tools/pendulum).
