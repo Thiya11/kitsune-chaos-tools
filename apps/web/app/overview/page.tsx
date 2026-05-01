@@ -164,6 +164,9 @@ function ToolCard({ tool }: { tool: (typeof tools)[number] }) {
         <div style={{ marginTop: 'var(--space-md)', display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
           <span className="tag-pill">{tool.category}</span>
           {isLive && <span className="tag-pill">interactive</span>}
+          {tool.tags?.map((tag) => (
+            <span key={tag} className="tag-pill">{tag}</span>
+          ))}
         </div>
       </div>
     </Wrapper>

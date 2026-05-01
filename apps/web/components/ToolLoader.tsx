@@ -13,9 +13,15 @@ const PendulumSim = dynamic(
   { ssr: false, loading: () => <ToolSkeleton /> },
 )
 
+const LensFormulaSimulator = dynamic(
+  () => import('@kitsunechaos/tools').then((m) => ({ default: m.LensFormulaSimulator })),
+  { ssr: false, loading: () => <ToolSkeleton /> },
+)
+
 const COMPONENTS: Record<string, React.ComponentType> = {
   'ohms-law': OhmsLaw,
   pendulum: PendulumSim,
+  'lens-formula-simulator': LensFormulaSimulator,
 }
 
 export function ToolLoader({ slug }: { slug: string }) {

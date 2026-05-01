@@ -31,6 +31,11 @@
   <priority>0.80</priority>
 </url>
 <url>
+  <loc>https://kitsunechaos.com/tools/lens-formula-simulator</loc>
+  <lastmod>2026-05-01T00:00:00+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
   <loc>https://kitsunechaos.com/blog/why-i-rebuilt-kitsune-tools</loc>
   <lastmod>2026-04-04T00:00:00+00:00</lastmod>
   <priority>0.64</priority>

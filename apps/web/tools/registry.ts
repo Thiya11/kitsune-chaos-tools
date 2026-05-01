@@ -8,6 +8,7 @@ export interface ToolEntry {
   description: string
   component: string
   status: ToolStatus
+  tags?: string[]
   seoTitle?: string
   seoDescription?: string
   keywords?: string[]
@@ -45,6 +46,7 @@ export const tools: ToolEntry[] = [
     description: 'Solve for voltage, current, or resistance interactively with a live circuit diagram.',
     component: 'OhmsLaw',
     status: 'live',
+    tags: ['Circuits', 'Electronics', 'Calculator'],
     seoTitle: "Ohm's Law Calculator — Calculate Voltage, Current & Resistance",
     seoDescription:
       "Use this interactive Ohm's Law calculator to solve voltage, current, and resistance with the V = IR formula and clear circuit examples.",
@@ -147,6 +149,7 @@ export const tools: ToolEntry[] = [
     description: 'Visualize simple harmonic motion with a live animated pendulum and period readout.',
     component: 'PendulumSim',
     status: 'live',
+    tags: ['Motion', 'Physics', 'Simulator'],
     seoTitle: 'Pendulum Simulator — Interactive Simple Pendulum Physics Tool',
     seoDescription:
       'Explore pendulum motion with an interactive simple pendulum simulator. Adjust length and gravity, view the period formula, and learn how pendulums work.',
@@ -234,12 +237,135 @@ export const tools: ToolEntry[] = [
     ],
     relatedTools: [
       {
+        label: 'Lens Formula Simulator',
+        href: '/tools/lens-formula-simulator',
+        description: 'Explore another physics simulation for image distance, magnification, and thin lenses.',
+      },
+      {
         label: "Ohm's Law Calculator",
         href: '/tools/ohms-law',
         description: 'Explore another interactive STEM tool for voltage, current, and resistance.',
       },
     ],
     icon: '🔵',
+  },
+  {
+    slug: 'lens-formula-simulator',
+    name: 'Lens Formula Simulator',
+    category: 'physics',
+    description:
+      'Calculate image distance, magnification, and image height using the thin lens equation for convex and concave lenses.',
+    component: 'LensFormulaSimulator',
+    status: 'live',
+    tags: ['Optics', 'Lens', 'Physics', 'Simulator'],
+    seoTitle: 'Lens Formula Simulator — Interactive Thin Lens Equation Calculator',
+    seoDescription:
+      'Use this interactive lens formula simulator to calculate image distance, magnification, and image height for convex and concave lenses using the thin lens equation.',
+    keywords: [
+      'Interactive Lens Formula Simulator',
+      'lens formula simulator',
+      'thin lens equation calculator',
+      'lens equation calculator',
+      'convex lens simulator',
+      'concave lens simulator',
+      'image distance calculator',
+      'magnification calculator',
+      'optics simulator',
+    ],
+    formula: {
+      title: 'Thin lens equation',
+      expression: '1/f = 1/v + 1/u',
+      body:
+        'The thin lens equation relates focal length f, object distance u, and image distance v. In this simulator, students enter object distance as a positive distance from the lens. Convex lenses use positive focal length, concave lenses use negative focal length, and the calculator solves v = 1 / (1/f - 1/u).',
+    },
+    guide: [
+      {
+        heading: 'What is the lens formula?',
+        body: [
+          'The lens formula describes where an image forms when light from an object passes through a thin lens. It is a compact model for classroom optics problems, camera lenses, magnifying glasses, and basic ray diagrams.',
+          'This lens formula simulator turns the equation into an interactive optics simulator. Change the lens type, focal length, object distance, or object height, and the diagram updates so the calculated image position is easier to understand.',
+        ],
+      },
+      {
+        heading: 'Convex lens vs concave lens',
+        body: [
+          'A convex lens has a positive focal length and can form a real inverted image when the object is beyond the focal point. If the object is inside the focal length, the image becomes virtual and upright.',
+          'A concave lens has a negative focal length. For a real object in this beginner-friendly convention, it generally forms a virtual, upright, diminished image on the same side as the object.',
+        ],
+      },
+      {
+        heading: 'How to calculate image distance',
+        body: [
+          'Start with 1/f = 1/v + 1/u. Rearranging gives v = 1 / (1/f - 1/u). This page works as an image distance calculator by solving that expression whenever the inputs change.',
+          'If a convex lens has f = 10 cm and the object is u = 30 cm away, then v = 1 / (1/10 - 1/30) = 15 cm. The image forms on the opposite side of the lens.',
+        ],
+      },
+      {
+        heading: 'What is magnification?',
+        body: [
+          'Magnification compares image height with object height. This simulator uses m = -v / u. A negative magnification means the image is inverted, while a positive magnification means the image is upright.',
+          'The tool also works as a magnification calculator because image height is calculated from image height = magnification × object height.',
+        ],
+      },
+      {
+        heading: 'Real vs virtual image',
+        body: [
+          'A real image forms where light rays actually meet and can be projected onto a screen. In the diagram, real images appear on the opposite side of the lens from the object.',
+          'A virtual image forms where rays appear to come from. In the diagram, virtual images appear on the same side as the object and use a dashed arrow so the image type is not communicated by color alone.',
+        ],
+      },
+      {
+        heading: 'Common mistakes',
+        body: [
+          'The most common mistake is mixing sign conventions. This simulator keeps object distance positive for beginner usability, then applies positive focal length for convex lenses and negative focal length for concave lenses.',
+          'Another common mistake is ignoring the focal point edge case. When the object distance equals the focal length for a convex lens, the image forms at infinity, so the page shows a friendly message instead of a broken number.',
+        ],
+      },
+    ],
+    examples: [
+      {
+        title: 'Convex lens beyond the focal point',
+        body: 'With f = 10 cm and u = 30 cm, the image distance is 15 cm. The magnification is -0.5, so the image is real, inverted, and diminished.',
+      },
+      {
+        title: 'Convex lens at the focal point',
+        body: 'With f = 10 cm and u = 10 cm, the denominator becomes zero. The image forms at infinity instead of at a finite screen distance.',
+      },
+      {
+        title: 'Concave lens',
+        body: 'With f = -10 cm and u = 30 cm, the image distance is negative. The image is virtual, upright, and diminished.',
+      },
+    ],
+    faqs: [
+      {
+        question: 'Is this a thin lens equation calculator?',
+        answer:
+          'Yes. It calculates image distance, magnification, and image height from the thin lens equation 1/f = 1/v + 1/u.',
+      },
+      {
+        question: 'What sign convention does this lens equation calculator use?',
+        answer:
+          'Object distance is entered as positive for beginner usability. Convex focal length is positive, concave focal length is negative, and magnification is m = -v / u.',
+      },
+      {
+        question: 'Why does the image go to infinity?',
+        answer:
+          'For a convex lens, an object at the focal point sends outgoing rays parallel to each other. The image distance is not finite, so the simulator reports that the image forms at infinity.',
+      },
+      {
+        question: 'Can I use it as a convex lens simulator and concave lens simulator?',
+        answer:
+          'Yes. Use the lens type control to switch between convex and concave behavior, then compare how the image position and orientation change.',
+      },
+    ],
+    relatedTools: [
+      {
+        label: 'Pendulum Simulator',
+        href: '/tools/pendulum',
+        description: 'Try another physics simulation for motion, gravity, and simple harmonic behavior.',
+      },
+    ],
+    icon: '🔍',
   },
 ]
 
