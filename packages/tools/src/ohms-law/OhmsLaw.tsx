@@ -18,21 +18,21 @@ const BLUE  = '#3b82f6'   // V
 const GREEN = '#22c55e'   // I
 const AMBER = '#f59e0b'   // R
 
-// ── SVG circuit geometry ──────────────────────────────────────────────────────
-const CX_LEFT   = 90
-const CX_RIGHT  = 440
-const CX_TOP    = 72
-const CX_BOTTOM = 232
+// ── SVG circuit geometry (viewBox 0 0 600 280) ───────────────────────────────
+const CX_LEFT   = 80
+const CX_RIGHT  = 520
+const CX_TOP    = 40
+const CX_BOTTOM = 240
 
-const BATT_X      = CX_LEFT
-const BATT_MID_Y  = (CX_TOP + CX_BOTTOM) / 2   // 152
-const CELL_STEP   = 9    // px between long-line centres of adjacent cells
+const BATT_X     = 80
+const BATT_MID_Y = (CX_TOP + CX_BOTTOM) / 2   // 140
+const CELL_STEP  = 18   // px between cells (positive terminal to next positive terminal)
 
-const RES_LEFT  = 202
-const RES_RIGHT = 328
+const RES_LEFT  = 220
+const RES_RIGHT = 380
 const RES_Y     = CX_TOP
 const RES_SEGS  = 8
-const RES_ZIG   = 8      // half-amplitude of zigzag
+const RES_ZIG   = 10    // half-amplitude of zigzag
 
 const DOT_COUNT = 7
 
@@ -161,10 +161,9 @@ function CircuitDiagram({ voltage, current, formattedV, formattedR }: CircuitDia
   const dotRefs = useRef<(SVGCircleElement | null)[]>(Array(DOT_COUNT).fill(null) as null[])
 
   // Battery cell count 1–9, scales with voltage
-  const cellCount = clamp(Math.round((voltage / V_MAX) * 9), 1, 9)
-  // battStartY: topmost long-line Y, centred at BATT_MID_Y
-  const battSpan  = (cellCount - 1) * CELL_STEP + 4   // +4 for short line below last long line
-  const battStartY = BATT_MID_Y - battSpan / 2
+  const cellCount  = clamp(Math.round((voltage / V_MAX) * 9), 1, 9)
+  const battSpan   = cellCount * CELL_STEP           // total height of cell stack
+  const battStartY = BATT_MID_Y - battSpan / 2      // topmost positive-terminal Y
 
   // GSAP electron animation — reruns when current changes
   useEffect(() => {
@@ -172,7 +171,7 @@ function CircuitDiagram({ voltage, current, formattedV, formattedR }: CircuitDia
     if (!path) return
 
     const totalLen = path.getTotalLength()
-    const duration = lerp(current, I_MIN, I_MAX, 3, 0.4)  // slow → fast as I rises
+    const duration = lerp(current, I_MIN, I_MAX, 3, 0.4)
     const proxies: Array<{ t: number }> = []
 
     dotRefs.current.forEach((dot, i) => {
@@ -181,7 +180,6 @@ function CircuitDiagram({ voltage, current, formattedV, formattedR }: CircuitDia
       const proxy  = { t: startT }
       proxies.push(proxy)
 
-      // Place dot immediately before tween starts
       const pt0 = path.getPointAtLength(startT)
       dot.setAttribute('cx', String(pt0.x))
       dot.setAttribute('cy', String(pt0.y))
@@ -202,15 +200,34 @@ function CircuitDiagram({ voltage, current, formattedV, formattedR }: CircuitDia
     return () => { proxies.forEach((p) => gsap.killTweensOf(p)) }
   }, [current])
 
-  // Midpoint of top-right wire segment (resistor end → right corner) for current label
+  // Arrowhead x position: ~one-third from the right on the top wire
+  const arrowX1 = RES_RIGHT + Math.round((CX_RIGHT - RES_RIGHT) * 0.45)
+  const arrowX2 = arrowX1 + 20
+
+  // Current label: midpoint of top-right wire segment
   const currentLabelX = (RES_RIGHT + CX_RIGHT) / 2
 
   return (
     <svg
-      viewBox="0 0 520 300"
-      style={{ width: '100%', display: 'block', maxHeight: '38vh' }}
+      viewBox="0 0 600 280"
+      width="100%"
+      height="100%"
       preserveAspectRatio="xMidYMid meet"
     >
+      <defs>
+        <marker
+          id="arrow-dir"
+          viewBox="0 0 10 6"
+          refX="10"
+          refY="3"
+          markerWidth="8"
+          markerHeight="6"
+          orient="auto"
+        >
+          <path d="M0 0 L10 3 L0 6 Z" fill={GREEN} />
+        </marker>
+      </defs>
+
       {/* ── Hidden path for GSAP tracking ── */}
       <path
         ref={pathRef}
@@ -219,7 +236,7 @@ function CircuitDiagram({ voltage, current, formattedV, formattedR }: CircuitDia
         stroke="transparent"
       />
 
-      {/* ── Wires (full rectangle) ── */}
+      {/* ── Wires (full rectangle) — strokeWidth 2 ── */}
       <rect
         x={CX_LEFT}
         y={CX_TOP}
@@ -234,8 +251,8 @@ function CircuitDiagram({ voltage, current, formattedV, formattedR }: CircuitDia
       {/* ── Battery cells (drawn over left wire) ── */}
       <AnimatePresence>
         {Array.from({ length: cellCount }).map((_, i) => {
-          const ly = battStartY + i * CELL_STEP   // long (thin) line Y
-          const sy = ly + 4                        // short (thick) line Y
+          const posY = battStartY + i * CELL_STEP   // positive terminal Y
+          const negY = posY + 8                      // negative terminal Y
           return (
             <motion.g
               key={i}
@@ -244,75 +261,82 @@ function CircuitDiagram({ voltage, current, formattedV, formattedR }: CircuitDia
               exit={{ opacity: 0 }}
               transition={{ duration: 0.25 }}
             >
-              {/* Positive terminal — long thin horizontal line */}
+              {/* Positive terminal — long thin line (28px wide, sw 1.5) */}
               <line
-                x1={BATT_X - 12} y1={ly}
-                x2={BATT_X + 12} y2={ly}
+                x1={BATT_X - 14} y1={posY}
+                x2={BATT_X + 14} y2={posY}
                 stroke={BLUE} strokeWidth="1.5"
               />
-              {/* Negative terminal — short thick horizontal line */}
+              {/* Negative terminal — short thick line (14px wide, sw 4) */}
               <line
-                x1={BATT_X - 7} y1={sy}
-                x2={BATT_X + 7} y2={sy}
-                stroke={BLUE} strokeWidth="3"
+                x1={BATT_X - 7} y1={negY}
+                x2={BATT_X + 7} y2={negY}
+                stroke={BLUE} strokeWidth="1.5"
               />
             </motion.g>
           )
         })}
       </AnimatePresence>
 
-      {/* ── Resistor (drawn over top wire) ── */}
-      {/* Filled rect covers the wire segment behind the zigzag */}
+      {/* ── Resistor (drawn over top wire) — strokeWidth 1.5 ── */}
       <rect
-        x={RES_LEFT - 3}
-        y={RES_Y - RES_ZIG - 6}
-        width={RES_RIGHT - RES_LEFT + 6}
-        height={(RES_ZIG + 6) * 2}
+        x={RES_LEFT - 4}
+        y={RES_Y - RES_ZIG - 8}
+        width={RES_RIGHT - RES_LEFT + 8}
+        height={(RES_ZIG + 8) * 2}
         fill="var(--bg-card)"
       />
       <polyline
         points={zigPts}
         fill="none"
         stroke={AMBER}
-        strokeWidth="2.5"
+        strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
 
-      {/* ── Value labels ── */}
-      {/* Voltage: to the left of battery, inside the loop */}
+      {/* ── Conventional current arrowhead on top wire ── */}
+      <line
+        x1={arrowX1} y1={CX_TOP}
+        x2={arrowX2} y2={CX_TOP}
+        stroke="none"
+        markerEnd="url(#arrow-dir)"
+      />
+
+      {/* ── Value labels (inside circuit loop) ── */}
+      {/* Voltage: right of battery, inside loop */}
       <text
-        x={BATT_X + 20}
-        y={BATT_MID_Y + 4}
+        x={BATT_X + 28}
+        y={BATT_MID_Y + 5}
         textAnchor="start"
         fill={BLUE}
-        fontSize="12"
+        fontSize="13"
         fontWeight="600"
         fontFamily="monospace"
       >
         {formattedV}
       </text>
 
-      {/* Resistance: below the resistor body, inside the loop */}
+      {/* Resistance: below the resistor body, inside loop */}
       <text
         x={(RES_LEFT + RES_RIGHT) / 2}
-        y={RES_Y + RES_ZIG + 20}
+        y={RES_Y + RES_ZIG + 22}
         textAnchor="middle"
         fill={AMBER}
-        fontSize="12"
+        fontSize="13"
         fontWeight="600"
         fontFamily="monospace"
       >
         {formattedR}
       </text>
 
-      {/* Current: on the top-right wire segment, inside the loop */}
+      {/* Current: on top-right wire segment, below the wire */}
       <text
         x={currentLabelX}
-        y={CX_TOP + 20}
+        y={CX_TOP + 22}
         textAnchor="middle"
         fill={GREEN}
-        fontSize="12"
+        fontSize="13"
         fontWeight="600"
         fontFamily="monospace"
       >
@@ -354,14 +378,16 @@ export function OhmsLaw() {
           minHeight:     0,
         }}
       >
-        {/* Top: SVG circuit diagram */}
+        {/* Top: SVG circuit diagram — fixed 300px so it fills without overflow */}
         <Panel>
-          <CircuitDiagram
-            voltage={voltage}
-            current={current}
-            formattedV={formattedV}
-            formattedR={formattedR}
-          />
+          <div style={{ height: '300px' }}>
+            <CircuitDiagram
+              voltage={voltage}
+              current={current}
+              formattedV={formattedV}
+              formattedR={formattedR}
+            />
+          </div>
         </Panel>
 
         {/* Middle: animated formula */}
