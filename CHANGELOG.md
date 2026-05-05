@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0] - 2026-05-05
+
+### Added
+- **Lens Formula Simulator** — new interactive thin lens ray diagram tool under Physics
+- Scale ruler below the principal axis showing real distances in cm; auto-steps based on current zoom level
+
+### Changed
+- Object arrow is draggable horizontally; minimum object distance enforced at 20 cm from lens
+- Ray intersection points clamped to lens aperture — rays no longer originate outside the drawn lens boundary
+- Scale calculation no longer uses image distance, preventing object from collapsing into the lens at extreme focal lengths
+- Image arrow (line + arrowhead + label) now animates as a single grouped unit with a shared spring, eliminating the arrowhead lag
+
+### Fixed
+- Rays now always originate from the object arrow tip regardless of scale compression
+- Object arrow cannot enter the lens in any slider combination
+
 ## [1.0.1] - 2026-04-05
 
 ### Added
