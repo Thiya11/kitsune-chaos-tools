@@ -1,7 +1,7 @@
 'use client'
 
-import { useMemo, useRef, useState } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import { AnimatePresence, motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { Panel, Slider, ToolShell } from '@kitsunechaos/ui'
 import { solveLens, type LensType, type LensResult } from '@kitsunechaos/physics'
 
@@ -723,6 +723,18 @@ function ImageArrow({
   const isUp = tipY <= baseY
   const arrowSide = isUp ? 1 : -1
 
+  const mv = useMotionValue(tipY)
+  const spring = useSpring(mv, { stiffness: 180, damping: 22 })
+
+  useEffect(() => {
+    mv.set(tipY)
+  }, [tipY, mv])
+
+  const arrowD = useTransform(spring, (y) =>
+    `M ${x} ${y} L ${x - 7} ${y + 12 * arrowSide} L ${x + 7} ${y + 12 * arrowSide} Z`,
+  )
+  const labelY = useTransform(spring, (y) => (isUp ? y - 14 : y + 24))
+
   return (
     <g>
       <motion.line
@@ -733,22 +745,10 @@ function ImageArrow({
         strokeWidth={3}
         strokeDasharray={dashed ? '6 3' : undefined}
       />
-      <motion.g animate={{ y: tipY }} transition={springTransition}>
-        <path
-          d={`M ${x} 0 L ${x - 7} ${12 * arrowSide} L ${x + 7} ${12 * arrowSide} Z`}
-          fill={stroke}
-          opacity={dashed ? 0.75 : 1}
-        />
-        <text
-          x={x}
-          y={isUp ? -14 : 24}
-          fill={stroke}
-          fontSize={12}
-          textAnchor="middle"
-        >
-          {label}
-        </text>
-      </motion.g>
+      <motion.path d={arrowD} fill={stroke} opacity={dashed ? 0.75 : 1} />
+      <motion.text x={x} y={labelY} fill={stroke} fontSize={12} textAnchor="middle">
+        {label}
+      </motion.text>
     </g>
   )
 }
