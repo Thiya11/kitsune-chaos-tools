@@ -697,8 +697,7 @@
    =========================== */
 
 .tool-shell-root {
-  height: calc(100vh - var(--nav-height));
-  overflow: hidden;
+  min-height: calc(100vh - var(--nav-height));
 }
 
 .tool-shell-body {
@@ -707,7 +706,6 @@
   max-width: 90rem;
   margin: 0 auto;
   width: 100%;
-  overflow: hidden;
 }
 
 .tool-shell-sidebar {
