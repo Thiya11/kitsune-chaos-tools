@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.0] - 2026-05-06
+
+### Added
+- **Wave Interference Simulator** — new Physics tool with a 16× low-res pixel canvas (150×100 rendered, scaled 4×), two-source interference pattern, nodal line overlays, and right-edge fringe markers (m = −3 … +3)
+- `waveInterference.ts` physics module — `WaveParams`, `WaveSource`, `getSourcePositions`, `getWavelength`, `computeFringePositions`, `computeAmplitude`, `amplitudeToColor`
+
+### Changed
+- Canvas overlay controls (source toggle + play/pause) moved inside the simulation panel; source count uses a two-segment pill toggle matching the site button palette
+- Tool shell layout changed from fixed `height: calc(100vh)` to `min-height` so content flows to the page naturally without an internal scrollbar
+
 ## [1.2.0] - 2026-05-05
 
 ### Added

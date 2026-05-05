@@ -367,6 +367,156 @@ export const tools: ToolEntry[] = [
     ],
     icon: '🔍',
   },
+  {
+    slug: 'wave-interference',
+    name: 'Wave Interference Simulator',
+    category: 'physics',
+    description: 'Visualise two-source interference with a live pixel canvas, nodal lines, and fringe markers.',
+    component: 'WaveInterference',
+    status: 'live',
+    tags: ['Waves', 'Optics', 'Physics', 'Simulator'],
+    seoTitle: 'Wave Interference Simulator — Two-Source Interference Pattern Calculator',
+    seoDescription:
+      'Explore two-source wave interference with an interactive simulator. Adjust frequency, amplitude, and source separation to see constructive and destructive fringe patterns update in real time.',
+    keywords: [
+      'wave interference simulator',
+      'two-source interference',
+      'double slit interference',
+      'constructive destructive interference',
+      'fringe pattern calculator',
+      'wave interference formula',
+      'Young\'s double slit',
+      'interference fringe spacing',
+      'wavelength calculator',
+    ],
+    formula: {
+      title: 'Two-source interference formula',
+      expression: 'd · sin(θ) = m · λ',
+      body:
+        'This formula gives the angles at which constructive interference fringes appear. d is the centre-to-centre separation of the two sources, θ is the angle measured from the straight-ahead central axis, m is the fringe order (0, ±1, ±2, …), and λ is the wavelength of the wave. When m is an integer the path difference is a whole number of wavelengths, so the waves arrive in phase and reinforce. When m is a half-integer (±0.5, ±1.5, …) the path difference is a half-wavelength and the waves cancel. The dashed nodal lines and right-edge fringe markers in this simulator mark those exact positions.',
+    },
+    guide: [
+      {
+        heading: 'What is wave interference?',
+        body: [
+          'Interference is what happens when two or more waves meet in the same space. Each wave carries energy and oscillates the medium — or field — it travels through. When waves overlap, their amplitudes add together at every point. Where two crests coincide the combined amplitude is doubled, producing a bright region. Where a crest meets a trough the waves cancel, producing a dark or silent region.',
+          'This is not a special edge case. It is how all waves behave, from water ripples in a pond to sound in a concert hall to light passing through a narrow slit. The two-source case shown in this simulator is the cleanest possible demonstration: two identical point sources emit circular waves with the same frequency and phase, and the pattern they create is called a two-source interference pattern.',
+        ],
+      },
+      {
+        heading: 'Constructive and destructive interference',
+        body: [
+          'Constructive interference occurs wherever the two waves arrive in phase. That means the path lengths from the two sources to that point differ by an exact whole number of wavelengths: 0, λ, 2λ, 3λ, and so on. At those points the crests always coincide with crests and the amplitude is at its maximum. These are the bright bands you see on the right side of the canvas.',
+          'Destructive interference occurs wherever the path difference is an odd half-wavelength: λ/2, 3λ/2, 5λ/2. At those points a crest from one source always arrives at the same time as a trough from the other. The dashed lines in the simulator trace the nodal lines — loci where the path difference is always exactly half a wavelength — from the midpoint between the sources to the screen edge.',
+        ],
+      },
+      {
+        heading: 'Understanding the formula d · sin(θ) = m · λ',
+        body: [
+          'The formula comes from geometry. Pick any bright fringe at angle θ from the central axis. Draw lines from each source to that fringe. If the sources are close compared to the distance to the screen, those lines are nearly parallel. The extra distance one wave travels compared to the other — the path difference — is approximately d · sin(θ), where d is the source separation.',
+          'For constructive interference, that path difference must equal a whole number of wavelengths: d · sin(θ) = m · λ. Rearranging gives sin(θ) = mλ/d, so the fringe angles are set entirely by the ratio of wavelength to source separation. A larger wavelength or smaller separation pushes the fringes to wider angles, making them appear farther from the centre on the screen.',
+        ],
+      },
+      {
+        heading: 'How source separation affects fringe spacing',
+        body: [
+          'Increasing the separation d between the two sources compresses the fringe pattern. The formula shows why: sin(θ) = mλ/d, so a larger d gives a smaller angle for each fringe order. In practice, the bands pack together and more of them become visible across the same screen area.',
+          'Decreasing the separation has the opposite effect. As d shrinks toward the wavelength, the first-order fringe angle grows toward 90 degrees and eventually the fringe moves off screen. At very small separations only the central maximum — the straight-ahead bright band at m = 0 — remains visible. Try dragging the source separation slider from 40 down to 5 and watch the bands spread apart.',
+        ],
+      },
+      {
+        heading: 'How frequency affects the pattern',
+        body: [
+          'Frequency and wavelength are linked by the wave speed: λ = v / f. A higher frequency means a shorter wavelength. Substituting back into the fringe formula, shorter λ gives a smaller sin(θ) for every fringe order, so the fringes move closer to the centre and more bands fit within the visible area.',
+          'Lowering the frequency stretches the wavelength and spreads the fringes further apart. At the minimum frequency setting of 0.5 Hz the wavelength is large relative to the source separation, so only one or two bright bands are visible. At 3 Hz the shorter wavelength packs several bands clearly into view. This is the direct wave equivalent of changing the colour of light in a real double-slit experiment: blue light has higher frequency and narrower fringe spacing than red light.',
+        ],
+      },
+      {
+        heading: 'What the amplitude slider controls',
+        body: [
+          'Amplitude sets how strongly each source emits. In this simulator it controls the peak oscillation height of each circular wave. At full amplitude the constructive bright bands reach their maximum brightness and the contrast between bright and dark regions is sharpest.',
+          'Lowering the amplitude dims both the bright and dark regions proportionally, because the wave heights shrink. The pattern itself — where the fringes fall — does not change. Amplitude has no effect on fringe position, only on how vivid the contrast appears. This mirrors real physics: increasing the power of two loudspeakers makes the sound louder everywhere but does not shift where the quiet nodal lines are in the room.',
+        ],
+      },
+      {
+        heading: 'One source vs two sources',
+        body: [
+          'Toggle the source count to see what interference actually adds. With one source you get a single set of concentric circular ripples expanding outward. There is no fixed fringe pattern, just the natural spreading of a wave from a point — amplitude falls with distance as the energy spreads around a growing circle.',
+          'Switching to two sources immediately creates a stable fringe pattern. The nodal lines and bright bands are fixed in space even as the wave crests travel outward. That stability is the signature of interference: it only appears when two coherent sources combine. In real experiments coherence — keeping the same phase relationship — is the difficult part; in this simulator both sources are always perfectly coherent.',
+        ],
+      },
+      {
+        heading: 'Real-world applications',
+        body: [
+          'Young\'s double-slit experiment, performed in 1801, was the first clear demonstration that light behaves as a wave. Two closely spaced slits act as two coherent sources and the resulting fringe pattern on a screen proved light must have a wavelength. The same geometry described by d · sin(θ) = m · λ applies whether the waves are water, sound, or light.',
+          'Engineers exploit interference in noise-cancelling headphones, which generate a second sound wave with inverted phase to produce destructive interference at the ear. Thin-film coatings on camera lenses use the same principle with light: a thin layer is chosen so reflected waves interfere destructively, reducing glare. Antenna arrays in radio and radar use constructive interference to focus a beam in a chosen direction. Understanding the fringe formula is the starting point for all of these technologies.',
+        ],
+      },
+    ],
+    examples: [
+      {
+        title: 'Default settings — three bright bands',
+        body: 'At separation = 20 and frequency = 1.5 Hz the simulator shows three clear bright bands: the central maximum (m = 0) and the first-order fringes at m = ±1 on each side. The nodal lines mark the destructive positions at m = ±0.5 and m = ±1.5 between them.',
+      },
+      {
+        title: 'High frequency — many close bands',
+        body: 'Set frequency to 3 Hz and keep separation at 20. The wavelength halves, so fringe spacing halves and the pattern becomes much denser. Several bright bands are now visible across the canvas height, reproducing what happens in optics when you switch from red to blue light.',
+      },
+      {
+        title: 'Large separation — compressed pattern',
+        body: 'Drag separation to 40 and keep frequency at 1.5 Hz. Doubling the source distance compresses the fringe spacing by half. More fringes appear, each narrower than before. This is the double-slit result: wider slits mean tighter fringes.',
+      },
+      {
+        title: 'Single source — pure ripple',
+        body: 'Toggle to one source. The interference pattern disappears entirely. What remains is a single expanding circular wave with no fixed bright or dark regions — just the natural 1/√r falloff of a 2D point source. Switching back to two sources immediately restores the fringe pattern.',
+      },
+    ],
+    faqs: [
+      {
+        question: 'What does m represent in d · sin(θ) = m · λ?',
+        answer:
+          'It is the fringe order — an integer that counts bright bands out from the centre. m = 0 is the central maximum directly between the sources, m = ±1 are the first bright bands on each side, m = ±2 are the next, and so on. The dashed lines in the simulator mark the half-integer positions (m = ±0.5, ±1.5, …) where destructive interference creates the dark nodal lines.',
+      },
+      {
+        question: 'Why do fringes move closer together when separation increases?',
+        answer:
+          'The fringe angle is given by sin(θ) = mλ/d. A larger d divides into the same mλ and gives a smaller angle. On a flat screen that translates directly to less vertical distance between fringes. The relationship is linear: doubling d exactly halves the fringe spacing.',
+      },
+      {
+        question: 'Does amplitude affect where the fringes are?',
+        answer:
+          'No. Fringe positions depend only on the wavelength and source separation, not on how strongly the sources emit. Amplitude only controls the brightness contrast between bright and dark regions. A weaker source makes the pattern dimmer but the nodal lines stay in exactly the same places.',
+      },
+      {
+        question: 'What is a nodal line?',
+        answer:
+          'A nodal line is a locus of points where the waves from both sources always arrive exactly out of phase. At every point on a nodal line the path difference is a half-integer number of wavelengths, so the waves cancel permanently. In the simulator the dashed white lines trace each nodal line from between the sources to the right screen edge.',
+      },
+      {
+        question: 'How is this related to Young\'s double-slit experiment?',
+        answer:
+          'Young\'s experiment uses two narrow slits as coherent sources of light waves, which is the exact setup modelled here. The bright and dark fringes on the screen follow d · sin(θ) = m · λ, with d as the slit separation and λ as the light wavelength. The only practical difference is scale: light wavelengths are hundreds of nanometres, so real slit separations and fringe spacings are tiny compared to the simulation.',
+      },
+      {
+        question: 'Why does the pattern disappear with one source?',
+        answer:
+          'Interference requires at least two waves. With one source there is nothing to interfere with, so the canvas shows only the wave expanding from that single point. There are no fixed bright or dark regions because the wave amplitude everywhere just follows the ripple phase at that moment, with no path-difference geometry to create a stable pattern.',
+      },
+    ],
+    relatedTools: [
+      {
+        label: 'Lens Formula Simulator',
+        href: '/tools/lens-formula-simulator',
+        description: 'Explore another optics tool for image distance, magnification, and thin-lens behaviour.',
+      },
+      {
+        label: 'Pendulum Simulator',
+        href: '/tools/pendulum',
+        description: 'Try another animated physics simulation showing oscillation and period.',
+      },
+    ],
+    icon: '〰️',
+  },
 ]
 
 export function getToolBySlug(slug: string): ToolEntry | undefined {
