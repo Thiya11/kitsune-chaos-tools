@@ -94,7 +94,7 @@ function EquationPanel({ separation, wavelength, frequency }: EquationPanelProps
             transition={spring}
             style={valueStyle}
           >
-            {separation} units
+            {separation}
           </motion.span>
         </div>
 
@@ -107,7 +107,7 @@ function EquationPanel({ separation, wavelength, frequency }: EquationPanelProps
             transition={spring}
             style={valueStyle}
           >
-            {wavelength.toFixed(1)} units
+            {wavelength.toFixed(1)}
           </motion.span>
         </div>
 
@@ -334,7 +334,7 @@ export function WaveInterference() {
               max={40}
               step={1}
               onChange={setSeparation}
-              displayValue={`${separation} units`}
+              displayValue={`${separation}`}
             />
           </div>
         </Panel>
