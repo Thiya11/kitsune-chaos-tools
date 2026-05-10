@@ -25,6 +25,9 @@ Interactive STEM tools for physics, electronics, and more — built as a Turbore
 | Animations | Framer Motion + GSAP |
 | Language | TypeScript (strict) |
 
+<img width="1617" height="777" alt="Screenshot 2026-05-10 123950" src="https://github.com/user-attachments/assets/1a7d2eab-2048-4f54-93aa-006aa6c52773" />
+
+
 ## Repository layout
 
 ```
