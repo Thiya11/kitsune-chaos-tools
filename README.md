@@ -117,6 +117,9 @@ Add an entry to `apps/web/tools/registry.ts`:
 
 ### 4. Add the dynamic import
 
+<img width="1666" height="884" alt="Screenshot 2026-05-10 124009" src="https://github.com/user-attachments/assets/0179e306-72a5-4901-81b2-d55b85bb7172" />
+
+
 In `apps/web/app/tools/[slug]/page.tsx`, add the slug to `TOOL_COMPONENTS`:
 
 ```ts
@@ -144,6 +147,8 @@ tags: ["physics", "tutorial"]
 ```
 
 The blog index and article pages are automatically generated.
+<img width="1751" height="932" alt="image" src="https://github.com/user-attachments/assets/0642cbfc-9aee-4079-9fad-5f981416523e" />
+
 
 ---
 
